@@ -108,9 +108,9 @@ Summary: VAEs, like PCA, perform unsupervised feature extraction, but with non-l
 
 ### Identifying Ising model phase transitions with neural networks
 
-The Ising model has been simulated using the Metropolis method, a Markov Chain Monte Carlo (MCMC) method. 
+The Ising model has been simulated using the Metropolis algorithm as sampling rule and  Markov Chain Monte Carlo (MCMC) procedure to sample configurations. 
 
-Here results here have been obtained by  implementing the 50x50 2D lattice version of the Ising model and
+The  results here have been obtained by  implementing the 50x50 2D lattice version of the Ising model and
 training a convolutional neural network (CNN) to perform regession and
 classification.  The regression task deals with the  prediction of  the lattice
 temperature while the classification part  identifies configurations
