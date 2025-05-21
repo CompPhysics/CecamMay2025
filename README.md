@@ -4,7 +4,7 @@ May 26, 2025 - May 30, 2025 see https://www.cecam.org/workshop-details/machine-l
 
 ## Using Machine Learning to Classify Phase Transitions
 
-These notes, with pertinent exercises cover the following topics. All the material here can be found in the PDF files, codes and jupyter-notebooks at the above doc folder, see the _pub_ subfolder, link to be added  
+These notes, with pertinent exercises cover the following topics. All the material here can be found in the PDF files, codes and jupyter-notebooks at the above _doc_ folder, see the _pub_ subfolder, link to be added  
 - Phase Transitions & Critical Phenomena: Definitions and key concepts (order parameters, critical points, first vs second order).
 - Spin Models: 2D Ising model and the q-state Potts model (examples of phase transitions).
 - Data Generation: Monte Carlo simulations for sampling spin configurations across temperatures.
