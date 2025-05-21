@@ -147,7 +147,7 @@ Here is the critical temperature infered from classification
 
 
 <p align="center">
-<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Notes/DatafilesIsing/figs/figs/TF_CNN_probabilities-1.png?raw=true" width="500"/>
+<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Notes/DatafilesIsing/figs/TF_CNN_probabilities-1.png?raw=true" width="500"/>
 <p align="center">
 
 
