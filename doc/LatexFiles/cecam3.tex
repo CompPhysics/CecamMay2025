@@ -24,6 +24,292 @@
  \tableofcontents
 \end{frame}
 
+
+\section{Introductory slides}
+
+\begin{frame}[plain,fragile]
+\frametitle{What is this talk about?}
+
+\begin{block}{}
+The main emphasis is to give you a short and pedestrian introduction to the whys and hows we can use (with several examples) machine learning methods
+in physics. And why this could (or should) be of interest. 
+\end{block}
+
+\begin{block}{}
+These slides and more at \href{{http://mhjensenseminars.github.io/MachineLearningTalk/doc/pub/Geiloschool/}}{\nolinkurl{http://mhjensenseminars.github.io/MachineLearningTalk/doc/pub/Geiloschool/}}
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Thanks to many}
+
+Jane Kim (MSU), Julie Butler (MSU), Patrick Cook (MSU), Danny Jammooa (MSU), Daniel Bazin (MSU), Dean Lee (MSU), Witek Nazarewicz (MSU), Michelle Kuchera (Davidson College), Even Nordhagen (UiO), Robert Solli (UiO, Expert Analytics), Bryce Fore (ANL), Alessandro Lovato (ANL), Stefano Gandolfi (LANL), Francesco Pederiva (UniTN), and Giuseppe Carleo (EPFL). 
+Niyaz Beysengulov and Johannes Pollanen (experiment, MSU); Zachary Stewart, Jared Weidman, and Angela Wilson (quantum chemistry, MSU)
+Jonas Flaten, Oskar, Leinonen, Øyvind Sigmundson Schøyen, Stian Dysthe Bilek, and Håkon Emil Kristiansen (UiO). Marianne Bathen and Lasse Vines (experiments (UiO). Excuses to those I have omitted.
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{And sponsors}
+
+\begin{enumerate}
+\item National Science Foundation, US (various grants)
+
+\item Department of Energy, US (various grants)
+
+\item Research Council of Norway (various grants) and my employers University of Oslo and Michigan State University
+\end{enumerate}
+
+\noindent
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{AI/ML and some statements you may have heard (and what do they mean?)}
+
+\begin{enumerate}
+\item Fei-Fei Li on ImageNet: \textbf{map out the entire world of objects} (\href{{https://cacm.acm.org/news/219702-the-data-that-transformed-ai-research-and-possibly-the-world/fulltext}}{The data that transformed AI research})
+
+\item Russell and Norvig in their popular textbook: \textbf{relevant to any intellectual task; it is truly a universal field} (\href{{http://aima.cs.berkeley.edu/}}{Artificial Intelligence, A modern approach})
+
+\item Woody Bledsoe puts it more bluntly: \textbf{in the long run, AI is the only science} (quoted in Pamilla McCorduck, \href{{https://www.pamelamccorduck.com/machines-who-think}}{Machines who think})
+\end{enumerate}
+
+\noindent
+If you wish to have a critical read on AI/ML from a societal point of view, see \href{{https://www.katecrawford.net/}}{Kate Crawford's recent text Atlas of AI}. 
+
+\textbf{Here: with AI/ML we intend a collection of machine learning methods with an emphasis on statistical learning and data analysis}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Types of machine learning}
+
+\begin{block}{}
+The approaches to machine learning are many, but are often split into two main categories. 
+In \emph{supervised learning} we know the answer to a problem,
+and let the computer deduce the logic behind it. On the other hand, \emph{unsupervised learning}
+is a method for finding patterns and relationship in data sets without any prior knowledge of the system.
+
+An important  third category is  \emph{reinforcement learning}. This is a paradigm 
+of learning inspired by behavioural psychology, where learning is achieved by trial-and-error, 
+solely from rewards and punishment.
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Main categories}
+
+\begin{block}{}
+Another way to categorize machine learning tasks is to consider the desired output of a system.
+Some of the most common tasks are:
+
+\begin{itemize}
+  \item Classification: Outputs are divided into two or more classes. The goal is to   produce a model that assigns inputs into one of these classes. An example is to identify  digits based on pictures of hand-written ones. Classification is typically supervised learning.
+
+  \item Regression: Finding a functional relationship between an input data set and a reference data set.   The goal is to construct a function that maps input data to continuous output values.
+
+  \item Clustering: Data are divided into groups with certain common traits, without knowing the different groups beforehand.  It is thus a form of unsupervised learning.
+\end{itemize}
+
+\noindent
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{The plethora  of machine learning algorithms/methods}
+
+\begin{enumerate}
+\item Deep learning: Neural Networks (NN), Convolutional NN, Recurrent NN, Boltzmann machines, autoencoders and variational autoencoders  and generative adversarial networks, stable diffusion and many more generative models
+
+\item Bayesian statistics and Bayesian Machine Learning, Bayesian experimental design, Bayesian Regression models, Bayesian neural networks, Gaussian processes and much more
+
+\item Dimensionality reduction (Principal component analysis), Clustering Methods and more
+
+\item Ensemble Methods, Random forests, bagging and voting methods, gradient boosting approaches 
+
+\item Linear and logistic regression, Kernel methods, support vector machines and more
+
+\item Reinforcement Learning; Transfer Learning and more 
+\end{enumerate}
+
+\noindent
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Example of generative modeling, \href{{https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html}}{taken from Generative Deep Learning by David Foster}}
+
+\vspace{6mm}
+
+% inline figure
+\centerline{\includegraphics[width=1.0\linewidth]{figures/generativelearning.png}}
+
+\vspace{6mm}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Example of discriminative modeling, \href{{https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html}}{taken from Generative Deeep Learning by David Foster}}
+
+\vspace{6mm}
+
+% inline figure
+\centerline{\includegraphics[width=1.0\linewidth]{figures/standarddeeplearning.png}}
+
+\vspace{6mm}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Taxonomy of generative deep learning, \href{{https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html}}{taken from Generative Deep Learning by David Foster}}
+
+\vspace{6mm}
+
+% inline figure
+\centerline{\includegraphics[width=1.0\linewidth]{figures/generativemodels.png}}
+
+\vspace{6mm}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Good books with hands-on material and codes}
+
+\begin{block}{}
+\begin{itemize}
+\item \href{{https://sebastianraschka.com/blog/2022/ml-pytorch-book.html}}{Sebastian Rashcka et al, Machine learning with Sickit-Learn and PyTorch}
+
+\item \href{{https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html}}{David Foster, Generative Deep Learning with TensorFlow}
+
+\item \href{{https://github.com/PacktPublishing/Hands-On-Generative-AI-with-Python-and-TensorFlow-2}}{Bali and Gavras, Generative AI with Python and TensorFlow 2}
+\end{itemize}
+
+\noindent
+\end{block}
+
+All three books have GitHub addresses from where  one can download all codes. We will borrow most of the material from these three texts as well as 
+from Goodfellow, Bengio and Courville's text \href{{https://www.deeplearningbook.org/}}{Deep Learning}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{What are the basic Machine Learning ingredients?}
+
+\begin{block}{}
+Almost every problem in ML and data science starts with the same ingredients:
+\begin{itemize}
+\item The dataset $\bm{x}$ (could be some observable quantity of the system we are studying)
+
+\item A model which is a function of a set of parameters $\bm{\alpha}$ that relates to the dataset, say a likelihood  function $p(\bm{x}\vert \bm{\alpha})$ or just a simple model $f(\bm{\alpha})$
+
+\item A so-called \textbf{loss/cost/risk} function $\mathcal{C} (\bm{x}, f(\bm{\alpha}))$ which allows us to decide how well our model represents the dataset. 
+\end{itemize}
+
+\noindent
+We seek to minimize the function $\mathcal{C} (\bm{x}, f(\bm{\alpha}))$ by finding the parameter values which minimize $\mathcal{C}$. This leads to  various minimization algorithms. It may surprise many, but at the heart of all machine learning algortihms there is an optimization problem. 
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Low-level machine learning, the family of ordinary least squares methods}
+
+Our data which we want to apply a machine learning method on, consist
+of a set of inputs $\bm{x}^T=[x_0,x_1,x_2,\dots,x_{n-1}]$ and the
+outputs we want to model $\bm{y}^T=[y_0,y_1,y_2,\dots,y_{n-1}]$.
+We assume  that the output data can be represented (for a regression case) by a continuous function $f$
+through
+\[
+\bm{y}=f(\bm{x})+\bm{\epsilon}.
+\]
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Setting up the equations}
+
+In linear regression we approximate the unknown function with another
+continuous function $\tilde{\bm{y}}(\bm{x})$ which depends linearly on
+some unknown parameters
+$\bm{\theta}^T=[\theta_0,\theta_1,\theta_2,\dots,\theta_{p-1}]$.
+
+The input data can be organized in terms of a so-called design matrix 
+with an approximating function $\bm{\tilde{y}}$ 
+\[
+\bm{\tilde{y}}= \bm{X}\bm{\theta},
+\]
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{The objective/cost/loss function}
+
+The  simplest approach is the mean squared error
+\[
+C(\bm{\Theta})=\frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\tilde{y}_i\right)^2=\frac{1}{n}\left\{\left(\bm{y}-\bm{\tilde{y}}\right)^T\left(\bm{y}-\bm{\tilde{y}}\right)\right\},
+\]
+or using the matrix $\bm{X}$ and in a more compact matrix-vector notation as
+\[
+C(\bm{\Theta})=\frac{1}{n}\left\{\left(\bm{y}-\bm{X}\bm{\theta}\right)^T\left(\bm{y}-\bm{X}\bm{\theta}\right)\right\}.
+\]
+This function represents one of many possible ways to define the so-called cost function.
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Training solution}
+
+Optimizing with respect to the unknown parameters $\theta_j$ we get 
+\[
+\bm{X}^T\bm{y} = \bm{X}^T\bm{X}\bm{\theta},  
+\]
+and if the matrix $\bm{X}^T\bm{X}$ is invertible we have the optimal values
+\[
+\hat{\bm{\theta}} =\left(\bm{X}^T\bm{X}\right)^{-1}\bm{X}^T\bm{y}.
+\]
+
+We say we 'learn' the unknown parameters $\bm{\theta}$ from the last equation.
+\end{frame}
+
+
+\begin{frame}[plain,fragile]
+\frametitle{Selected references}
+
+\begin{block}{}
+\begin{itemize}
+\item \href{{https://arxiv.org/abs/1803.08823}}{Mehta et al.} and \href{{https://www.sciencedirect.com/science/article/pii/S0370157319300766?via%3Dihub}}{Physics Reports (2019)}.
+
+\item \href{{https://link.aps.org/doi/10.1103/RevModPhys.91.045002}}{Machine Learning and the Physical Sciences by Carleo et al}
+
+\item \href{{https://journals.aps.org/rmp/abstract/10.1103/RevModPhys.94.031003}}{Artificial Intelligence and Machine Learning in Nuclear Physics, Amber Boehnlein et al., Reviews Modern of Physics 94, 031003 (2022)} 
+
+\item \href{{https://journals.aps.org/prresearch/pdf/10.1103/PhysRevResearch.5.033062}}{Dilute neutron star matter from neural-network quantum states by Fore et al, Physical Review Research 5, 033062 (2023)}
+
+\item \href{{https://doi.org/10.48550/arXiv.2305.08831}}{Neural-network quantum states for ultra-cold Fermi gases, Jane Kim et al, Nature Physics Communcication, submitted}
+
+\item \href{{https://doi.org/10.48550/arXiv.2305.07240}}{Message-Passing Neural Quantum States for the Homogeneous Electron Gas, Gabriel Pescia, Jane Kim et al.~arXiv.2305.07240,}
+
+\item "Efficient solutions of fermionic systems using artificial neural networks, Nordhagen et al, Frontiers in Physics
+\end{itemize}
+
+\noindent
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Machine learning. A simple perspective on the interface between ML and Physics}
+
+\vspace{6mm}
+
+% inline figure
+\centerline{\includegraphics[width=1.0\linewidth]{figures/mlimage.png}}
+
+\vspace{6mm}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{ML in Nuclear  Physics (or any field in physics)}
+
+\vspace{6mm}
+
+% inline figure
+\centerline{\includegraphics[width=1.0\linewidth]{figures/ML-NP.pdf}}
+
+\vspace{6mm}
+\end{frame}
+
+
+
+
 \section{Phase Transitions and Critical Phenomena}
 
 \begin{frame}{Phase Transitions: Definitions}
@@ -76,10 +362,10 @@
      \[
        \frac{2J}{k_B T_c} = \ln(1+\sqrt{2}) \quad\Rightarrow\quad T_c \approx \frac{2J}{\ln(1+\sqrt{2})}\approx 2.269J.
      \]
-     (For simplicity set $k_B=1$) [oai_citation:0‡sites.pitt.edu](https://sites.pitt.edu/~jdnorton/teaching/philphys/Ising_sim/index.html#:~:text=,is%20set%20to%20this%20value).
+     (For simplicity set $k_B=1$) 
    \item At $T>T_c$: spins are mostly disordered, no net magnetization.
    \item At $T<T_c$: long-range order develops (nonzero $M$).
-   \item Correlation length $\xi$ diverges at $T_c$ [oai_citation:1‡sites.pitt.edu](https://sites.pitt.edu/~jdnorton/teaching/philphys/Ising_sim/index.html#:~:text=4,diverges%20at%20the%20critical%20point).
+   \item Correlation length $\xi$ diverges at $T_c$ 
    \item Example: at $T=T_c$ large clusters of aligned spins appear.
  \end{itemize}
 \end{frame}
@@ -99,12 +385,12 @@
 
 \begin{frame}{2D Potts Model: Phase Behavior}
  \begin{itemize}
-   \item In 2D, the ferromagnetic Potts model has a phase transition for all $q\ge1$ [oai_citation:2‡en.wikipedia.org](https://en.wikipedia.org/wiki/Potts_model#:~:text=for%20the%20standard%20ferromagnetic%20Potts,4%7D.%5B%209).
+   \item In 2D, the ferromagnetic Potts model has a phase transition for all $q\ge1$ 
    \item Exact critical point:
      \[
        \frac{J}{k_B T_c} = \ln\!\bigl(1+\sqrt{q}\bigr).
      \]
-   \item The nature of the transition depends on $q$ [oai_citation:3‡en.wikipedia.org](https://en.wikipedia.org/wiki/Potts_model#:~:text=for%20the%20standard%20ferromagnetic%20Potts,4%7D.%5B%209):
+   \item The nature of the transition depends on $q$ 
      \begin{itemize}
        \item $1 \le q \le 4$: continuous (second-order) transition.
        \item $q > 4$: discontinuous (first-order) transition (latent heat appears).
@@ -182,9 +468,9 @@ for T in temperature_list:
  \begin{itemize}
    \item Apply PCA to the ensemble of spin configurations (flattened to vectors).
    \item The first principal component (PC1) often correlates with the order parameter (e.g.\ magnetization).
-   \item Hu et al. (2017) found PCA distinguishes different phases and can locate critical points [oai_citation:6‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
+   \item Hu et al. (2017) found PCA distinguishes different phases and can locate critical points 
    \item By plotting data in the subspace of PCs, one sees separation of low-$T$ (ordered) vs high-$T$ (disordered) points.
-   \item No labels needed: phase transitions are revealed by clustering in PC space [oai_citation:7‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
+   \item No labels needed: phase transitions are revealed by clustering in PC space 
  \end{itemize}
 \end{frame}
 
@@ -205,17 +491,17 @@ for T in temperature_list:
    \item At $T < T_c$, configurations cluster with large positive or negative PC1 (ordered states).
    \item At $T > T_c$, configurations cluster near PC1 ≈ 0 (disordered).
    \item The variance captured by PC1 drops sharply at $T_c$, signaling the transition.
-   \item PCA automatically finds these features, without knowing the physics a priori [oai_citation:8‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
+   \item PCA automatically finds these features, without knowing the physics a priori 
  \end{itemize}
 \end{frame}
 
 \begin{frame}{PCA Limitations}
  \begin{itemize}
    \item PCA is linear: complex nonlinear features (e.g.\ vortex order) may not be captured.
-   \item Example: In a frustrated 2D spin model, PCA failed to detect certain correlations (vorticity) [oai_citation:9‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=well%20known,phase%20transitions%20and%20critical%20points).
+   \item Example: In a frustrated 2D spin model, PCA failed to detect certain correlations (vorticity) 
    \item PCA does not directly classify; it provides features for clustering or visualization.
    \item Sensitive to scaling: data should be normalized appropriately.
-   \item Still useful as a first-pass: identifies the most significant variations [oai_citation:10‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
+   \item Still useful as a first-pass: identifies the most significant variations 
  \end{itemize}
 \end{frame}
 
@@ -258,7 +544,7 @@ X_reduced = torch.mm(X, PCs)  # shape (N, k)
  \begin{itemize}
    \item Prepare training data: spin configurations labeled by phase or temperature.
    \item CNN learns to map configuration $\to$ phase label (ordered/disordered) or predict $T$.
-   \item As shown by Carrasquilla and Melko (2017), CNNs can identify phases from raw states [oai_citation:11‡nature.com](https://www.nature.com/articles/nphys4035#:~:text=abilities%20to%20recognize%2C%20classify%2C%20and,sampled%20with%20Monte%20Carlo%2023%2C7).
+   \item As shown by Carrasquilla and Melko (2017), CNNs can identify phases from raw states 
    \item Achieves high accuracy on Ising and other models when training labels are available.
    \item CNNs exploit locality: can detect clusters or domains of aligned spins via convolution filters.
  \end{itemize}
@@ -280,8 +566,8 @@ X_reduced = torch.mm(X, PCs)  # shape (N, k)
    \item Train on many labeled samples (e.g.\ temperatures $T$ and whether $T<T_c$ or $T>T_c$).
    \item The network learns features such as magnetization domains, energy patterns, etc.
    \item CNN accuracy can be very high (often $\sim$100\% on clean data) for distinguishing phases.
-   \item Fukushima \& Sakai (2021): a CNN trained on 2D Ising can detect transition in $q$-state Potts [oai_citation:12‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=generated,However%2C%20in%20the%20vicinity).
-   \item CNN behavior: at high $T$ it effectively uses average energy; at low $T$ it correlates with magnetization [oai_citation:13‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=accuracy%2C%20regardless%20of%20the%20type,However%2C%20in%20the%20vicinity).
+   \item Fukushima \& Sakai (2021): a CNN trained on 2D Ising can detect transition in $q$-state Potts 
+   \item CNN behavior: at high $T$ it effectively uses average energy; at low $T$ it correlates with magnetization 
  \end{itemize}
 \end{frame}
 
@@ -291,9 +577,9 @@ X_reduced = torch.mm(X, PCs)  # shape (N, k)
    \item Outputs correlate with known physics:
      \begin{itemize}
        \item At low $T$: classification heavily influenced by magnetization (order).
-       \item At high $T$: classification influenced by internal energy (disorder) [oai_citation:14‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=accuracy%2C%20regardless%20of%20the%20type,However%2C%20in%20the%20vicinity).
+       \item At high $T$: classification influenced by internal energy (disorder) 
      \end{itemize}
-   \item CNNs can generalize: e.g.\ Ising-trained CNN finds Potts $T_c$ [oai_citation:15‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=generated,However%2C%20in%20the%20vicinity), implying it learned universal features.
+   \item CNNs can generalize: e.g.\ Ising-trained CNN finds Potts $T_c$ 
    \item Visualization methods (e.g.\ saliency maps) can highlight what CNN focuses on.
  \end{itemize}
 \end{frame}
@@ -348,8 +634,8 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
  \begin{itemize}
    \item Train VAE on spin configurations (no labels).
    \item Latent space (usually low-dimensional) captures key features (like order parameter).
-   \item Walker et al. (2020): latent variables provide metrics to track order vs disorder in Ising [oai_citation:16‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=The%202,The%20performance%20of%20this%20method).
-   \item They found the latent representation closely corresponds to physical order (magnetization) [oai_citation:17‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=By%20comparing%20,inaccuracies%20in%20the%20intermediate%20magnetizations).
+   \item Walker et al. (2020): latent variables provide metrics to track order vs disorder in Ising 
+   \item They found the latent representation closely corresponds to physical order (magnetization) 
    \item After training, one can:
      \begin{itemize}
        \item Inspect latent space (e.g.\ scatter plot of $(\mu_1,\mu_2)$) to distinguish phases.
@@ -377,10 +663,10 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
 \begin{frame}{VAE Results on Ising Model}
  \begin{itemize}
-   \item The first latent dimension ($\nu_0$) learned by the VAE correlated strongly with magnetization [oai_citation:18‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=By%20comparing%20,inaccuracies%20in%20the%20intermediate%20magnetizations).
+   \item The first latent dimension ($\nu_0$) learned by the VAE correlated strongly with magnetization 
    \item Plotting $\nu_0$ vs temperature shows clear change around $T_c$ (order–disorder).
    \item This means VAE "discovered" the order parameter without supervision.
-   \item The VAE predicted the critical region and crossover consistently with theory [oai_citation:19‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=The%202,The%20performance%20of%20this%20method).
+   \item The VAE predicted the critical region and crossover consistently with theory 
    \item Latent space clustering: ordered-phase points separate from disordered.
  \end{itemize}
 \end{frame}
@@ -459,17 +745,17 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
  \begin{itemize}
    \item \textbf{Supervised (CNN)}: Requires labeled data (phase labels or temperatures). Learns a direct mapping $\{\text{config}\}\to\{\text{phase}\}$.
    \item \textbf{Unsupervised (PCA, VAE)}: Uses only the raw configurations without labels. Learns features or representations of the data.
-   \item PCA reduces dimensionality; requires no training labels [oai_citation:20‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
-   \item VAE learns a latent generative model; also label-free [oai_citation:21‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=The%202,The%20performance%20of%20this%20method).
+   \item PCA reduces dimensionality; requires no training labels 
+   \item VAE learns a latent generative model; also label-free 
    \item CNN typically achieves higher accuracy in classifying known phases, but needs supervised labels.
  \end{itemize}
 \end{frame}
 
 \begin{frame}{Method Interpretability and Features}
  \begin{itemize}
-   \item \textbf{PCA}: Principal components often have clear physical meaning (e.g.\ PC1 ∝ magnetization) [oai_citation:22‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
-   \item \textbf{CNN}: Filters are less directly interpretable; features are learned. However, some correlation with physics (energy, $M$) emerges [oai_citation:23‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=accuracy%2C%20regardless%20of%20the%20type,However%2C%20in%20the%20vicinity).
-   \item \textbf{VAE}: Latent variables can often be interpreted as order/disorder features (e.g.\ one latent ≈ magnetization) [oai_citation:24‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=By%20comparing%20,inaccuracies%20in%20the%20intermediate%20magnetizations).
+   \item \textbf{PCA}: Principal components often have clear physical meaning (e.g.\ PC1 and  magnetization) 
+   \item \textbf{CNN}: Filters are less directly interpretable; features are learned. However, some correlation with physics (energy, $M$) emerges 
+   \item \textbf{VAE}: Latent variables can often be interpreted as order/disorder features (e.g.\ one latent ≈ magnetization) 
    \item CNN is a "black box" classifier; PCA/VAE provide insight into data structure.
    \item In terms of visualization: PCA and VAE produce low-dim plots of data (semi-transparent), whereas CNN only outputs a decision boundary.
  \end{itemize}
@@ -478,28 +764,19 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 \begin{frame}{Performance and Use Cases}
  \begin{itemize}
    \item \textbf{PCA}: Fast to compute; good for preliminary analysis of large datasets. Best for linearizable transitions.
-   \item \textbf{CNN}: High classification accuracy; powerful for large and complex datasets. Can predict critical $T$ or classify multiple phases [oai_citation:25‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=generated,However%2C%20in%20the%20vicinity).
-   \item \textbf{VAE}: Useful when no labels are available; provides a generative model. Effective in detecting transitions by latent statistics [oai_citation:26‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=The%202,The%20performance%20of%20this%20method).
+   \item \textbf{CNN}: High classification accuracy; powerful for large and complex datasets. Can predict critical $T$ or classify multiple phases 
+   \item \textbf{VAE}: Useful when no labels are available; provides a generative model. Effective in detecting transitions by latent statistics 
    \item Computational cost: PCA very cheap, CNN and VAE require training time (GPU recommended for large data).
    \item Choosing a method: depends on data availability and goal (classification vs insight vs generation).
  \end{itemize}
 \end{frame}
 
-\begin{frame}{Example Case Studies}
- \begin{itemize}
-   \item \textbf{Ising/CNN}: CNNs trained on Ising achieve $\approx100\%$ phase classification accuracy.
-   \item \textbf{Ising $\to$ Potts}: Fukushima \& Sakai show an Ising-trained CNN still identifies $T_c$ in Potts models [oai_citation:27‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=generated,However%2C%20in%20the%20vicinity).
-   \item \textbf{PCA on Potts}: PCA can also locate $T_c$ for Potts by looking at variance of PCs.
-   \item \textbf{VAE on Ising}: Walker et al.\ VAE found latent coordinate correlates with magnetization; predicted crossover region [oai_citation:28‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=By%20comparing%20,inaccuracies%20in%20the%20intermediate%20magnetizations) [oai_citation:29‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=The%202,The%20performance%20of%20this%20method).
-   \item \textbf{Limitation example}: PCA failed to find transition in a frustrated spin model due to non-linear order [oai_citation:30‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=well%20known,phase%20transitions%20and%20critical%20points).
- \end{itemize}
-\end{frame}
 
 \begin{frame}{Summary of Methods}
  \begin{itemize}
-   \item \textbf{PCA}: Unsupervised, linear, interpretable. Good for dimensionality reduction and initial exploration [oai_citation:31‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
-   \item \textbf{CNN}: Supervised, non-linear, high accuracy. Requires labels, but learns complex features (works across models [oai_citation:32‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=generated,However%2C%20in%20the%20vicinity)).
-   \item \textbf{VAE}: Unsupervised, generative. Learns latent representation reflecting order/disorder [oai_citation:33‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=By%20comparing%20,inaccuracies%20in%20the%20intermediate%20magnetizations). Good for unsupervised detection and data generation.
+   \item \textbf{PCA}: Unsupervised, linear, interpretable. Good for dimensionality reduction and initial exploration
+   \item \textbf{CNN}: Supervised, non-linear, high accuracy. Requires labels, but learns complex features (works across models 
+   \item \textbf{VAE}: Unsupervised, generative. Learns latent representation reflecting order/disorder 
    \item Each method has trade-offs in accuracy, interpretability, and data requirements.
    \item Combining methods (e.g.\ using PCA or VAE features as input to another classifier) can also be fruitful.
  \end{itemize}
@@ -510,8 +787,8 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 \begin{frame}{Conclusions}
  \begin{itemize}
    \item Machine learning provides powerful tools for studying phase transitions in statistical models.
-   \item \emph{Unsupervised} methods (PCA, VAE) can discover phase structure without labels [oai_citation:34‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical) [oai_citation:35‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=The%202,The%20performance%20of%20this%20method).
-   \item \emph{Supervised} methods (CNNs) achieve high classification performance given labeled data [oai_citation:36‡nature.com](https://www.nature.com/articles/nphys4035#:~:text=abilities%20to%20recognize%2C%20classify%2C%20and,sampled%20with%20Monte%20Carlo%2023%2C7).
+   \item \emph{Unsupervised} methods (PCA, VAE) can discover phase structure without labels 
+   \item \emph{Supervised} methods (CNNs) achieve high classification performance given labeled data 
    \item Interpretability: PCA/VAE offer more insight into physics (latent/PC represent order parameters), while CNNs focus on prediction accuracy.
    \item Choice of method depends on the problem: data availability, need for generative modeling, and interpretability.
    \item Future directions: deeper architectures (e.g.\ ResNets), unsupervised generative flows, transfer learning across models, real experimental data.
@@ -520,12 +797,101 @@ optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
 
 \begin{frame}{References}
  \begin{itemize}
-   \item Carrasquilla, J. \& Melko, R. G. (2017). Machine learning phases of matter. \emph{Nature Physics}, 13, 431–434 [oai_citation:37‡nature.com](https://www.nature.com/articles/nphys4035#:~:text=abilities%20to%20recognize%2C%20classify%2C%20and,sampled%20with%20Monte%20Carlo%2023%2C7).
-   \item Hu, W. \textit{et al.} (2017). Discovering phases, phase transitions through unsupervised ML. \emph{Phys. Rev. E} 95, 062122 [oai_citation:38‡link.aps.org](https://link.aps.org/doi/10.1103/PhysRevE.95.062122#:~:text=We%20apply%20unsupervised%20machine%20learning,vectors%20have%20a%20clear%20physical).
-   \item Fukushima, K. \& Sakai, K. (2021). Can a CNN trained on Ising detect Potts? \emph{Prog. Theor. Exp. Phys.} 2021, 061A01 [oai_citation:39‡arxiv.org](https://arxiv.org/abs/2104.03632#:~:text=generated,However%2C%20in%20the%20vicinity).
-   \item Walker, N. \textit{et al.} (2020). 2D Ising model crossover via VAE. \emph{Sci. Rep.} 10, 13047 [oai_citation:40‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=The%202,The%20performance%20of%20this%20method) [oai_citation:41‡nature.com](https://www.nature.com/articles/s41598-020-69848-5#:~:text=By%20comparing%20,inaccuracies%20in%20the%20intermediate%20magnetizations).
+   \item Carrasquilla, J. \& Melko, R. G. (2017). Machine learning phases of matter. \emph{Nature Physics}, 13, 431–434 
+   \item Hu, W. \textit{et al.} (2017). Discovering phases, phase transitions through unsupervised ML. \emph{Phys. Rev. E} 95, 062122 
+   \item Fukushima, K. \& Sakai, K. (2021). Can a CNN trained on Ising detect Potts? \emph{Prog. Theor. Exp. Phys.} 2021, 061A01 
+   \item Walker, N. \textit{et al.} (2020). 2D Ising model crossover via VAE. \emph{Sci. Rep.} 10, 13047 
    \item [Additional references on PCA, CNN, VAE methods].
  \end{itemize}
 \end{frame}
 
 \end{document}
+
+\begin{frame}[plain,fragile]
+\frametitle{Why Feed Forward Neural Networks (FFNN)?}
+
+According to the \emph{Universal approximation theorem}, a feed-forward
+neural network with just a single hidden layer containing a finite
+number of neurons can approximate a continuous multidimensional
+function to arbitrary accuracy, assuming the activation function for
+the hidden layer is a \textbf{non-constant, bounded and
+monotonically-increasing continuous function}.
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Universal approximation theorem}
+
+The universal approximation theorem plays a central role in deep
+learning.  \href{{https://link.springer.com/article/10.1007/BF02551274}}{Cybenko (1989)} showed
+the following:
+
+\begin{block}{}
+Let $\sigma$ be any continuous sigmoidal function such that
+\[
+\sigma(z) = \left\{\begin{array}{cc} 1 & z\rightarrow \infty\\ 0 & z \rightarrow -\infty \end{array}\right.
+\]
+Given a continuous and deterministic function $F(\bm{x})$ on the unit
+cube in $d$-dimensions $F\in [0,1]^d$, $x\in [0,1]^d$ and a parameter
+$\epsilon >0$, there is a one-layer (hidden) neural network
+$f(\bm{x};\bm{\Theta})$ with $\bm{\Theta}=(\bm{W},\bm{b})$ and $\bm{W}\in
+\mathbb{R}^{m\times n}$ and $\bm{b}\in \mathbb{R}^{n}$, for which
+\[
+\vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert < \epsilon \hspace{0.1cm} \forall \bm{x}\in[0,1]^d.
+\]
+
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{The approximation theorem in words}
+
+\textbf{Any continuous function $y=F(\bm{x})$ supported on the unit cube in
+$d$-dimensions can be approximated by a one-layer sigmoidal network to
+arbitrary accuracy.}
+
+\href{{https://www.sciencedirect.com/science/article/abs/pii/089360809190009T}}{Hornik (1991)} extended the theorem by letting any non-constant, bounded activation function to be included using that the expectation value
+\[
+\mathbb{E}[\vert F(\bm{x})\vert^2] =\int_{\bm{x}\in D} \vert F(\bm{x})\vert^2p(\bm{x})d\bm{x} < \infty.
+\]
+Then we have
+\[
+\mathbb{E}[\vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert^2] =\int_{\bm{x}\in D} \vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert^2p(\bm{x})d\bm{x} < \epsilon.
+\]
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{More on the general approximation theorem}
+
+None of the proofs give any insight into the relation between the
+number of of hidden layers and nodes and the approximation error
+$\epsilon$, nor the magnitudes of $\bm{W}$ and $\bm{b}$.
+
+Neural networks (NNs) have what we may call a kind of universality no matter what function we want to compute.
+
+\begin{block}{}
+It does not mean that an NN can be used to exactly compute any function. Rather, we get an approximation that is as good as we want. 
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Class of functions we can approximate}
+
+\begin{block}{}
+The class of functions that can be approximated are the continuous ones.
+If the function $F(\bm{x})$ is discontinuous, it won't in general be possible to approximate it. However, an NN may still give an approximation even if we fail in some points.
+\end{block}
+\end{frame}
+
+\begin{frame}[plain,fragile]
+\frametitle{Illustration of a single perceptron model and an FFNN}
+
+\begin{figure}[!ht]  % 
+  \centerline{\includegraphics[width=0.7\linewidth]{figures/nns.png}}
+  \caption{
+  In a) we show a single perceptron model while in b) we dispay a network with two  hidden layers, an input layer and an output layer.
+  }
+\end{figure}
+%\clearpage % flush figures
+\end{frame}
+
+
