@@ -6,7 +6,7 @@ DATE: CEACM Flagship School: Machine Learning in Physical Sciences: Theory and A
 !split
 ===== What is this about? =====
 !bblock
-These notes, with pertinent exercises cover the following topics. All the material here can be found in the PDF files, codes and jupyter-notebooks at the above _doc_ folder, see the _pub_ subfolder, link to be added  
+These notes, with pertinent exercises cover the following topics. 
 o Phase Transitions & Critical Phenomena: Definitions and key concepts (order parameters, critical points, first vs second order).
 o Spin Models: 2D Ising model and the q-state Potts model (examples of phase transitions).
 o Data Generation: Monte Carlo simulations for sampling spin configurations across temperatures.
@@ -15,6 +15,11 @@ o Supervised Learning (CNN): Convolutional Neural Networks for classifying phase
 o Generative Models (VAE): Variational Autoencoders for latent representation learning and critical anomaly detection.
 o Comparisons: Interpretability and performance trade-offs between PCA, CNN, and VAE.
 !eblock
+
+!split
+===== Where do I find the material? =====
+
+All the material here can be found in the PDF files, codes and jupyter-notebooks at the above _doc_ folder, see the _pub_ subfolder, link to be added  
 
 
 !split
