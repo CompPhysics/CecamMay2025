@@ -363,18 +363,17 @@ o Subtract the mean from each column (feature) of $X$.
 o Compute covariance matrix $C = X^T X$ (or use SVD on $X$ directly).
 o Obtain eigenvalues/vectors of $C$: $C = U \Lambda U^T$. Columns of $U$ are principal directions.
 o Sort by eigenvalues (variance). Project $X$ onto top $k$ PCs: $X_{\rm red} = X\,U[:,1:k]$.
-o Analyze $X_{\rm red}$: e.g.\ scatter plot PC1 vs PC2.
+o Analyze $X_{\rm red}$: e.g. scatter plot PC1 vs PC2.
 
 
 !split
 ===== PCA Example: Ising Model =====
 
 o In the 2D Ising model, PC1 is essentially proportional to the overall magnetization.
-o At $T < T_c$, configurations cluster with large positive or negative PC1 (ordered states).
-o At $T > T_c$, configurations cluster near PC1 ≈ 0 (disordered).
+o At $T<T_c$, configurations cluster with large positive or negative PC1 (ordered states).
+o At $T>T_c$, configurations cluster near $PC1 \approx 0$ (disordered).
 o The variance captured by PC1 drops sharply at $T_c$, signaling the transition.
-o PCA automatically finds these features, without knowing the physics a priori 
-
+o PCA automatically finds these features, without knowing the physics a priori.
 
 !split
 ===== PCA Limitations =====
@@ -410,7 +409,7 @@ X_reduced = torch.mm(X, PCs)  # shape (N, k)
 !split
 ===== Convolutional Neural Networks (CNNs) =====
 
-o CNNs are deep neural networks designed for spatial data (e.g.\ images).
+o CNNs are deep neural networks designed for spatial data (e.g. images).
 o Architecture: convolutional layers (feature detectors) + pooling, followed by fully connected layers.
 o In physics: treat spin lattice as an image with multiple channels (e.g.\ one channel of spins).
 o CNNs can learn complex nonlinear features automatically from data.
@@ -443,17 +442,12 @@ o CNN behavior: at high $T$ it effectively uses average energy; at low $T$ it co
 
 !split
 ===== CNN Interpretability =====
- \begin{itemize}
-   o CNNs are often seen as "black boxes", but their learned filters can sometimes be interpreted.
-   o Outputs correlate with known physics:
-     \begin{itemize}
-       o At low $T$: classification heavily influenced by magnetization (order).
-       o At high $T$: classification influenced by internal energy (disorder) 
-     \end{itemize}
-   o CNNs can generalize: e.g.\ Ising-trained CNN finds Potts $T_c$ 
-   o Visualization methods (e.g.\ saliency maps) can highlight what CNN focuses on.
- \end{itemize}
-\end{frame}
+o CNNs are often seen as _black boxes_, but their learned filters can sometimes be interpreted.
+o Outputs correlate with known physics:
+  o At low $T$: classification heavily influenced by magnetization (order).
+  o At high $T$: classification influenced by internal energy (disorder) 
+o CNNs can generalize: e.g.\ Ising-trained CNN finds Potts $T_c$ 
+o Visualization methods (e.g.\ saliency maps) can highlight what CNN focuses on.
 
 !split
 ===== CNN (PyTorch) Code Example =====
@@ -614,7 +608,7 @@ o CNN typically achieves higher accuracy in classifying known phases, but needs 
 
 o _PCA_: Principal components often have clear physical meaning (e.g.\ PC1 and  magnetization) 
 o _CNN_: Filters are less directly interpretable; features are learned. However, some correlation with physics (energy, $M$) emerges 
-o _VAE_: Latent variables can often be interpreted as order/disorder features (e.g.\ one latent ≈ magnetization) 
+o _VAE_: Latent variables can often be interpreted as order/disorder features (e.g. one latent is approximately equal to the  magnetization) 
 o CNN is a "black box" classifier; PCA/VAE provide insight into data structure.
 o In terms of visualization: PCA and VAE produce low-dim plots of data (semi-transparent), whereas CNN only outputs a decision boundary.
 
