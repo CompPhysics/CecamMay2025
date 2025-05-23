@@ -36,31 +36,10 @@ in physics. And why this could (or should) be of interest.
 \end{block}
 
 \begin{block}{}
-These slides and more at \href{{http://mhjensenseminars.github.io/MachineLearningTalk/doc/pub/Geiloschool/}}{\nolinkurl{http://mhjensenseminars.github.io/MachineLearningTalk/doc/pub/Geiloschool/}}
+These slides and more at \href{{http://mhjensenseminars.github.io/MachineLearningTalk/doc/pub/Geiloschool/}}{\nolinkurl{https://github.com/CompPhysics/CecamMay2025}}
 \end{block}
 \end{frame}
 
-\begin{frame}[plain,fragile]
-\frametitle{Thanks to many}
-
-Jane Kim (MSU), Julie Butler (MSU), Patrick Cook (MSU), Danny Jammooa (MSU), Daniel Bazin (MSU), Dean Lee (MSU), Witek Nazarewicz (MSU), Michelle Kuchera (Davidson College), Even Nordhagen (UiO), Robert Solli (UiO, Expert Analytics), Bryce Fore (ANL), Alessandro Lovato (ANL), Stefano Gandolfi (LANL), Francesco Pederiva (UniTN), and Giuseppe Carleo (EPFL). 
-Niyaz Beysengulov and Johannes Pollanen (experiment, MSU); Zachary Stewart, Jared Weidman, and Angela Wilson (quantum chemistry, MSU)
-Jonas Flaten, Oskar, Leinonen, Øyvind Sigmundson Schøyen, Stian Dysthe Bilek, and Håkon Emil Kristiansen (UiO). Marianne Bathen and Lasse Vines (experiments (UiO). Excuses to those I have omitted.
-\end{frame}
-
-\begin{frame}[plain,fragile]
-\frametitle{And sponsors}
-
-\begin{enumerate}
-\item National Science Foundation, US (various grants)
-
-\item Department of Energy, US (various grants)
-
-\item Research Council of Norway (various grants) and my employers University of Oslo and Michigan State University
-\end{enumerate}
-
-\noindent
-\end{frame}
 
 \begin{frame}[plain,fragile]
 \frametitle{AI/ML and some statements you may have heard (and what do they mean?)}
@@ -191,15 +170,15 @@ from Goodfellow, Bengio and Courville's text \href{{https://www.deeplearningbook
 \begin{block}{}
 Almost every problem in ML and data science starts with the same ingredients:
 \begin{itemize}
-\item The dataset $\bm{x}$ (could be some observable quantity of the system we are studying)
+\item The dataset $\bmx}$ (could be some observable quantity of the system we are studying)
 
-\item A model which is a function of a set of parameters $\bm{\alpha}$ that relates to the dataset, say a likelihood  function $p(\bm{x}\vert \bm{\alpha})$ or just a simple model $f(\bm{\alpha})$
+\item A model which is a function of a set of parameters $\bm\alpha}$ that relates to the dataset, say a likelihood  function $p(\bmx}\vert \bm\alpha})$ or just a simple model $f(\bm\alpha})$
 
-\item A so-called \textbf{loss/cost/risk} function $\mathcal{C} (\bm{x}, f(\bm{\alpha}))$ which allows us to decide how well our model represents the dataset. 
+\item A so-called \textbf{loss/cost/risk} function $\mathcal{C} (\bmx}, f(\bm\alpha}))$ which allows us to decide how well our model represents the dataset. 
 \end{itemize}
 
 \noindent
-We seek to minimize the function $\mathcal{C} (\bm{x}, f(\bm{\alpha}))$ by finding the parameter values which minimize $\mathcal{C}$. This leads to  various minimization algorithms. It may surprise many, but at the heart of all machine learning algortihms there is an optimization problem. 
+We seek to minimize the function $\mathcal{C} (\bmx}, f(\bm\alpha}))$ by finding the parameter values which minimize $\mathcal{C}$. This leads to  various minimization algorithms. It may surprise many, but at the heart of all machine learning algortihms there is an optimization problem. 
 \end{block}
 \end{frame}
 
@@ -207,12 +186,12 @@ We seek to minimize the function $\mathcal{C} (\bm{x}, f(\bm{\alpha}))$ by findi
 \frametitle{Low-level machine learning, the family of ordinary least squares methods}
 
 Our data which we want to apply a machine learning method on, consist
-of a set of inputs $\bm{x}^T=[x_0,x_1,x_2,\dots,x_{n-1}]$ and the
-outputs we want to model $\bm{y}^T=[y_0,y_1,y_2,\dots,y_{n-1}]$.
+of a set of inputs $\bmx}^T=[x_0,x_1,x_2,\dots,x_{n-1}]$ and the
+outputs we want to model $\bmy}^T=[y_0,y_1,y_2,\dots,y_{n-1}]$.
 We assume  that the output data can be represented (for a regression case) by a continuous function $f$
 through
 \[
-\bm{y}=f(\bm{x})+\bm{\epsilon}.
+\bmy}=f(\bmx})+\bm\epsilon}.
 \]
 \end{frame}
 
@@ -220,14 +199,14 @@ through
 \frametitle{Setting up the equations}
 
 In linear regression we approximate the unknown function with another
-continuous function $\tilde{\bm{y}}(\bm{x})$ which depends linearly on
+continuous function $\tilde{\bmy}}(\bmx})$ which depends linearly on
 some unknown parameters
-$\bm{\theta}^T=[\theta_0,\theta_1,\theta_2,\dots,\theta_{p-1}]$.
+$\bm\theta}^T=[\theta_0,\theta_1,\theta_2,\dots,\theta_{p-1}]$.
 
 The input data can be organized in terms of a so-called design matrix 
-with an approximating function $\bm{\tilde{y}}$ 
+with an approximating function $\bm\tilde{y}}$ 
 \[
-\bm{\tilde{y}}= \bm{X}\bm{\theta},
+\bm\tilde{y}}= \bmX}\bm\theta},
 \]
 \end{frame}
 
@@ -236,11 +215,11 @@ with an approximating function $\bm{\tilde{y}}$
 
 The  simplest approach is the mean squared error
 \[
-C(\bm{\Theta})=\frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\tilde{y}_i\right)^2=\frac{1}{n}\left\{\left(\bm{y}-\bm{\tilde{y}}\right)^T\left(\bm{y}-\bm{\tilde{y}}\right)\right\},
+C(\bm\Theta})=\frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\tilde{y}_i\right)^2=\frac{1}{n}\left\{\left(\bmy}-\bm\tilde{y}}\right)^T\left(\bmy}-\bm\tilde{y}}\right)\right\},
 \]
-or using the matrix $\bm{X}$ and in a more compact matrix-vector notation as
+or using the matrix $\bmX}$ and in a more compact matrix-vector notation as
 \[
-C(\bm{\Theta})=\frac{1}{n}\left\{\left(\bm{y}-\bm{X}\bm{\theta}\right)^T\left(\bm{y}-\bm{X}\bm{\theta}\right)\right\}.
+C(\bm\Theta})=\frac{1}{n}\left\{\left(\bmy}-\bmX}\bm\theta}\right)^T\left(\bmy}-\bmX}\bm\theta}\right)\right\}.
 \]
 This function represents one of many possible ways to define the so-called cost function.
 \end{frame}
@@ -250,14 +229,14 @@ This function represents one of many possible ways to define the so-called cost 
 
 Optimizing with respect to the unknown parameters $\theta_j$ we get 
 \[
-\bm{X}^T\bm{y} = \bm{X}^T\bm{X}\bm{\theta},  
+\bmX}^T\bmy} = \bmX}^T\bmX}\bm\theta},  
 \]
-and if the matrix $\bm{X}^T\bm{X}$ is invertible we have the optimal values
+and if the matrix $\bmX}^T\bmX}$ is invertible we have the optimal values
 \[
-\hat{\bm{\theta}} =\left(\bm{X}^T\bm{X}\right)^{-1}\bm{X}^T\bm{y}.
+\hat{\bm\theta}} =\left(\bmX}^T\bmX}\right)^{-1}\bmX}^T\bmy}.
 \]
 
-We say we 'learn' the unknown parameters $\bm{\theta}$ from the last equation.
+We say we 'learn' the unknown parameters $\bm\theta}$ from the last equation.
 \end{frame}
 
 
@@ -407,7 +386,7 @@ We say we 'learn' the unknown parameters $\bm{\theta}$ from the last equation.
      sample from Boltzmann distribution $P\propto e^{-H/T}$.
    \item Metropolis algorithm: attempt random single-spin flips to equilibrate the system.
    \item Provides training data: spin configurations $\{s_i\}$ labeled by temperature or phase.
-   \item Ensures statistical equilibrium and detailed balance [oai_citation:4‡rajeshrinet.github.io](https://rajeshrinet.github.io/blog/2014/ising-model/#:~:text=1,4).
+   \item Ensures statistical equilibrium and detailed balance 
    \item Efficient sampling (especially near $T_c$ cluster algorithms help, e.g.\ Wolff or Swendsen-Wang).
  \end{itemize}
 \end{frame}
@@ -421,7 +400,7 @@ We say we 'learn' the unknown parameters $\bm{\theta}$ from the last equation.
        \item Propose flipping $s_i \to -s_i$ (Ising) or change state (Potts).
        \item Compute energy change $\Delta E$.
        \item If $\Delta E \le 0$, accept the flip (lower energy).
-       \item Else accept with probability $\exp(-\Delta E/T)$ (Boltzmann factor) [oai_citation:5‡rajeshrinet.github.io](https://rajeshrinet.github.io/blog/2014/ising-model/#:~:text=1,4).
+       \item Else accept with probability $\exp(-\Delta E/T)$ (Boltzmann factor) 
        \item Otherwise, reject and keep the old state.
      \end{enumerate}
    \item After equilibration, record configurations as samples.
@@ -830,13 +809,13 @@ Let $\sigma$ be any continuous sigmoidal function such that
 \[
 \sigma(z) = \left\{\begin{array}{cc} 1 & z\rightarrow \infty\\ 0 & z \rightarrow -\infty \end{array}\right.
 \]
-Given a continuous and deterministic function $F(\bm{x})$ on the unit
+Given a continuous and deterministic function $F(\bmx})$ on the unit
 cube in $d$-dimensions $F\in [0,1]^d$, $x\in [0,1]^d$ and a parameter
 $\epsilon >0$, there is a one-layer (hidden) neural network
-$f(\bm{x};\bm{\Theta})$ with $\bm{\Theta}=(\bm{W},\bm{b})$ and $\bm{W}\in
-\mathbb{R}^{m\times n}$ and $\bm{b}\in \mathbb{R}^{n}$, for which
+$f(\bmx};\bm\Theta})$ with $\bm\Theta}=(\bmW},\bmb})$ and $\bmW}\in
+\mathbb{R}^{m\times n}$ and $\bmb}\in \mathbb{R}^{n}$, for which
 \[
-\vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert < \epsilon \hspace{0.1cm} \forall \bm{x}\in[0,1]^d.
+\vert F(\bmx})-f(\bmx};\bm\Theta})\vert < \epsilon \hspace{0.1cm} \forall \bmx}\in[0,1]^d.
 \]
 
 \end{block}
@@ -845,17 +824,17 @@ $f(\bm{x};\bm{\Theta})$ with $\bm{\Theta}=(\bm{W},\bm{b})$ and $\bm{W}\in
 \begin{frame}[plain,fragile]
 \frametitle{The approximation theorem in words}
 
-\textbf{Any continuous function $y=F(\bm{x})$ supported on the unit cube in
+\textbf{Any continuous function $y=F(\bmx})$ supported on the unit cube in
 $d$-dimensions can be approximated by a one-layer sigmoidal network to
 arbitrary accuracy.}
 
 \href{{https://www.sciencedirect.com/science/article/abs/pii/089360809190009T}}{Hornik (1991)} extended the theorem by letting any non-constant, bounded activation function to be included using that the expectation value
 \[
-\mathbb{E}[\vert F(\bm{x})\vert^2] =\int_{\bm{x}\in D} \vert F(\bm{x})\vert^2p(\bm{x})d\bm{x} < \infty.
+\mathbb{E}[\vert F(\bmx})\vert^2] =\int_{\bmx}\in D} \vert F(\bmx})\vert^2p(\bmx})d\bmx} < \infty.
 \]
 Then we have
 \[
-\mathbb{E}[\vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert^2] =\int_{\bm{x}\in D} \vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert^2p(\bm{x})d\bm{x} < \epsilon.
+\mathbb{E}[\vert F(\bmx})-f(\bmx};\bm\Theta})\vert^2] =\int_{\bmx}\in D} \vert F(\bmx})-f(\bmx};\bm\Theta})\vert^2p(\bmx})d\bmx} < \epsilon.
 \]
 \end{frame}
 
@@ -864,7 +843,7 @@ Then we have
 
 None of the proofs give any insight into the relation between the
 number of of hidden layers and nodes and the approximation error
-$\epsilon$, nor the magnitudes of $\bm{W}$ and $\bm{b}$.
+$\epsilon$, nor the magnitudes of $\bmW}$ and $\bmb}$.
 
 Neural networks (NNs) have what we may call a kind of universality no matter what function we want to compute.
 
@@ -878,7 +857,7 @@ It does not mean that an NN can be used to exactly compute any function. Rather,
 
 \begin{block}{}
 The class of functions that can be approximated are the continuous ones.
-If the function $F(\bm{x})$ is discontinuous, it won't in general be possible to approximate it. However, an NN may still give an approximation even if we fail in some points.
+If the function $F(\bmx})$ is discontinuous, it won't in general be possible to approximate it. However, an NN may still give an approximation even if we fail in some points.
 \end{block}
 \end{frame}
 
