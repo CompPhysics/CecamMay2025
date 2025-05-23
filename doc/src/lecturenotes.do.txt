@@ -1,32 +1,22 @@
-TITLE: Artificial intelligence and machine learning in physics, introduction 
+TITLE: Using Machine Learning to Classify Phase Transitions
 AUTHOR: Morten Hjorth-Jensen at Department of Physics and Center for Computing in Science Education, University of Oslo, Norway
-DATE: Geilo Winter school, March 10-20, 2025
+DATE: CEACM Flagship School: Machine Learning in Physical Sciences: Theory and Applications
+May 26, 2025 - May 30, 2025
 
 
 !split
-===== What is this talk about? =====
+===== What is this about? =====
 !bblock
-The main emphasis is to give you a short and pedestrian introduction to the whys and hows we can use (with several examples) machine learning methods
-in physics. And why this could (or should) be of interest. 
+These notes, with pertinent exercises cover the following topics. All the material here can be found in the PDF files, codes and jupyter-notebooks at the above _doc_ folder, see the _pub_ subfolder, link to be added  
+o Phase Transitions & Critical Phenomena: Definitions and key concepts (order parameters, critical points, first vs second order).
+o Spin Models: 2D Ising model and the q-state Potts model (examples of phase transitions).
+o Data Generation: Monte Carlo simulations for sampling spin configurations across temperatures.
+o Unsupervised Learning (PCA): Principal Component Analysis to visualize phase separation without labels.
+o Supervised Learning (CNN): Convolutional Neural Networks for classifying phases from raw configurations.
+o Generative Models (VAE): Variational Autoencoders for latent representation learning and critical anomaly detection.
+o Comparisons: Interpretability and performance trade-offs between PCA, CNN, and VAE.
 !eblock
 
-!bblock
-These slides and more at URL:"http://mhjensenseminars.github.io/MachineLearningTalk/doc/pub/Geiloschool/"
-!eblock
-
-!split
-===== Thanks to many =====
-
-Jane Kim (MSU), Julie Butler (MSU), Patrick Cook (MSU), Danny Jammooa (MSU), Daniel Bazin (MSU), Dean Lee (MSU), Witek Nazarewicz (MSU), Michelle Kuchera (Davidson College), Even Nordhagen (UiO), Robert Solli (UiO, Expert Analytics), Bryce Fore (ANL), Alessandro Lovato (ANL), Stefano Gandolfi (LANL), Francesco Pederiva (UniTN), and Giuseppe Carleo (EPFL). 
-Niyaz Beysengulov and Johannes Pollanen (experiment, MSU); Zachary Stewart, Jared Weidman, and Angela Wilson (quantum chemistry, MSU)
-Jonas Flaten, Oskar, Leinonen, Øyvind Sigmundson Schøyen, Stian Dysthe Bilek, and Håkon Emil Kristiansen (UiO). Marianne Bathen and Lasse Vines (experiments (UiO). Excuses to those I have omitted.
-
-!split
-===== And sponsors =====
-
-o National Science Foundation, US (various grants)
-o Department of Energy, US (various grants)
-o Research Council of Norway (various grants) and my employers University of Oslo and Michigan State University
 
 !split
 =====  AI/ML and some statements you may have heard (and what do they mean?)  =====
@@ -197,97 +187,6 @@ We say we 'learn' the unknown parameters $\bm{\theta}$ from the last equation.
 
 
 
-!split
-===== Ridge and LASSO Regression =====
-
-
-Our optimization problem is
-!bt
-\[
-{\displaystyle \min_{\bm{\theta}\in {\mathbb{R}}^{p}}}\frac{1}{n}\left\{\left(\bm{y}-\bm{X}\bm{\theta}\right)^T\left(\bm{y}-\bm{X}\bm{\theta}\right)\right\}.
-\]
-!et
-or we can state it as
-!bt
-\[
-{\displaystyle \min_{\bm{\theta}\in
-{\mathbb{R}}^{p}}}\frac{1}{n}\sum_{i=0}^{n-1}\left(y_i-\tilde{y}_i\right)^2=\frac{1}{n}\vert\vert \bm{y}-\bm{X}\bm{\theta}\vert\vert_2^2,
-\]
-!et
-where we have used the definition of  a norm-2 vector, that is
-!bt
-\[
-\vert\vert \bm{x}\vert\vert_2 = \sqrt{\sum_i x_i^2}. 
-\]
-!et
-
-!split
-===== From OLS to Ridge and Lasso =====
-
-By minimizing the above equation with respect to the parameters
-$\bm{\theta}$ we could then obtain an analytical expression for the
-parameters $\bm{\theta}$.  We can add a regularization parameter $\lambda$ by
-defining a new cost function to be optimized, that is
-
-!bt
-\[
-{\displaystyle \min_{\bm{\theta}\in
-{\mathbb{R}}^{p}}}\frac{1}{n}\vert\vert \bm{y}-\bm{X}\bm{\theta}\vert\vert_2^2+\lambda\vert\vert \bm{\theta}\vert\vert_2^2
-\]
-!et
-
-which leads to the Ridge regression minimization problem where we
-require that $\vert\vert \bm{\theta}\vert\vert_2^2\le t$, where $t$ is
-a finite number larger than zero. We do not include such a constraints in the discussions here.
-
-!split
-===== Lasso regression  =====
-
-Defining
-
-!bt
-\[
-C(\bm{X},\bm{\theta})=\frac{1}{n}\vert\vert \bm{y}-\bm{X}\bm{\theta}\vert\vert_2^2+\lambda\vert\vert \bm{\theta}\vert\vert_1,
-\]
-!et
-we have a new optimization equation
-!bt
-\[
-{\displaystyle \min_{\bm{\theta}\in
-{\mathbb{R}}^{p}}}\frac{1}{n}\vert\vert \bm{y}-\bm{X}\bm{\theta}\vert\vert_2^2+\lambda\vert\vert \bm{\theta}\vert\vert_1
-\]
-!et
-which leads to Lasso regression. Lasso stands for least absolute shrinkage and selection operator. 
-Here we have defined the norm-1 as 
-!bt
-\[
-\vert\vert \bm{x}\vert\vert_1 = \sum_i \vert x_i\vert. 
-\]
-!et
-
-
-
-
-
-!split
-===== Lots of room for creativity =====
-!bblock
-Not all the
-algorithms and methods can be given a rigorous mathematical
-justification, opening up thereby for experimenting
-and trial and error and thereby exciting new developments. 
-!eblock
-
-!bblock
-A solid command of linear algebra, multivariate theory, 
-probability theory, statistical data analysis, optimization algorithms, 
-understanding errors and Monte Carlo methods is important in order to understand many of the 
-various algorithms and methods. 
-!eblock
-
-_Job market, a personal statement_: "A familiarity with ML is almost becoming a prerequisite for many of the most exciting employment opportunities":"https://www.analyticsindiamag.com/top-countries-hiring-most-number-of-artificial-intelligence-machine-learning-experts/". And add quantum computing and there you are!
-
-
 
 !split
 ===== Selected references =====
@@ -320,298 +219,504 @@ FIGURE: [figures/ML-NP.pdf, width=900 frac=1.0]
 
 
 !split
-===== Scientific Machine Learning =====
+===== Phase Transitions and Critical Phenomena =====
 
-An important and emerging field is what has been dubbed as scientific ML, see the article by Deiana et al "Applications and Techniques for Fast Machine Learning in Science, Big Data _5_, 787421 (2022):https://doi.org/10.3389/fdata.2022.787421"
-
-!bblock
-The authors discuss applications and techniques for fast machine
-learning (ML) in science -- the concept of integrating power ML
-methods into the real-time experimental data processing loop to
-accelerate scientific discovery. The report covers three main areas
-
-o applications for fast ML across a number of scientific domains;
-o techniques for training and implementing performant and resource-efficient ML algorithms;
-o and computing architectures, platforms, and technologies for deploying these algorithms.
-
-!eblock
-
+o Definition: A phase transition is characterized by an abrupt, non-analytic change in a macroscopic property of a system as some external parameter (e.g. temperature) is varied . In simpler terms, the system’s state or phase changes dramatically at a critical point.
+o Order Parameter: Associated with each phase transition is an order parameter – a quantity that is zero in one phase and non-zero in the other. For example, magnetization plays the role of an order parameter in magnetic systems, distinguishing ordered (magnetized) from disordered (unmagnetized) phases.
+o Critical Point: At the critical temperature (or pressure, etc.), the order parameter changes (continuous or discontinuous) and the system exhibits critical phenomena: large fluctuations, divergence of correlation length, and the onset of scale invariance. Critical points of second-order transitions feature continuous change of the order parameter with characteristic critical exponents and universal behavior across different systems.
 
 
 !split
-===== ML for detectors =====
-
-FIGURE: [figures/detectors.png, width=900 frac=1.0]
-
-
-!split
-===== Physics driven Machine Learning =====
-
-Another hot topic is what has loosely been dubbed _Physics-driven deep learning_. See the recent work on "Learning nonlinear operators via DeepONet based on the universal approximation theorem of operators, Nature Machine Learning, vol 3, 218 (2021)":"https://www.nature.com/articles/s42256-021-00302-5".
-
-!bblock From their abstract
-A less known but powerful result is that an NN with a single hidden layer can accurately approximate any nonlinear continuous operator. This universal approximation theorem of operators is suggestive of the structure and potential of deep neural networks (DNNs) in learning continuous operators or complex systems from streams of scattered data. ...  We demonstrate that DeepONet can learn various explicit operators, such as integrals and fractional Laplacians, as well as implicit operators that represent deterministic and stochastic differential equations. 
-!eblock
-
-
-
-!split
-===== And more   =====
-
-!bblock
-* An important application of AI/ML methods is to improve the estimation of bias or uncertainty due to the introduction of or lack of physical constraints in various theoretical models.
-
-* In theory, we expect to use AI/ML algorithms and methods to improve our knowledge about  correlations of physical model parameters in data for quantum many-body systems. Deep learning methods show great promise in circumventing the exploding dimensionalities encountered in quantum mechanical many-body studies. 
-
-* Merging a frequentist approach (the standard path in ML theory) with a Bayesian approach, has the potential to infer better probabilitity distributions and error estimates. 
-
-* Machine Learning and Quantum Computing is a very interesting avenue to explore.
-!eblock
-
-
-
-!split
-===== Argon-46 by Solli et al., NIMA 1010, 165461 (2021) =====
-
-!bblock
-Representations of two events from an 
-Argon-46 experiment at MSU. Each row is one event in two projections,
-where the color intensity of each point indicates higher charge values
-recorded by the detector. The bottom row illustrates a carbon event with
-a large fraction of noise, while the top row shows a proton event
-almost free of noise. 
-!eblock
-
-
-FIGURE: [figures/examples_raw.png, width=500 frac=0.6]
-
-
-
-!split
-===== Why Feed Forward Neural Networks (FFNN)?  =====
-
-According to the *Universal approximation theorem*, a feed-forward
-neural network with just a single hidden layer containing a finite
-number of neurons can approximate a continuous multidimensional
-function to arbitrary accuracy, assuming the activation function for
-the hidden layer is a _non-constant, bounded and
-monotonically-increasing continuous function_.
-
-
-!split
-===== Universal approximation theorem =====
-
-The universal approximation theorem plays a central role in deep
-learning.  "Cybenko (1989)":"https://link.springer.com/article/10.1007/BF02551274" showed
-the following:
-
-!bblock
-Let $\sigma$ be any continuous sigmoidal function such that
-!bt
-\[
-\sigma(z) = \left\{\begin{array}{cc} 1 & z\rightarrow \infty\\ 0 & z \rightarrow -\infty \end{array}\right.
-\]
-!et
-Given a continuous and deterministic function $F(\bm{x})$ on the unit
-cube in $d$-dimensions $F\in [0,1]^d$, $x\in [0,1]^d$ and a parameter
-$\epsilon >0$, there is a one-layer (hidden) neural network
-$f(\bm{x};\bm{\Theta})$ with $\bm{\Theta}=(\bm{W},\bm{b})$ and $\bm{W}\in
-\mathbb{R}^{m\times n}$ and $\bm{b}\in \mathbb{R}^{n}$, for which
-!bt
-\[
-\vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert < \epsilon \hspace{0.1cm} \forall \bm{x}\in[0,1]^d.
-\]
-!et
-
-!eblock
-
-
-
-!split
-===== The approximation theorem in words =====
-
-_Any continuous function $y=F(\bm{x})$ supported on the unit cube in
-$d$-dimensions can be approximated by a one-layer sigmoidal network to
-arbitrary accuracy._
-
-"Hornik (1991)":"https://www.sciencedirect.com/science/article/abs/pii/089360809190009T" extended the theorem by letting any non-constant, bounded activation function to be included using that the expectation value
-!bt
-\[
-\mathbb{E}[\vert F(\bm{x})\vert^2] =\int_{\bm{x}\in D} \vert F(\bm{x})\vert^2p(\bm{x})d\bm{x} < \infty.
-\]
-!et
-Then we have
-!bt
-\[
-\mathbb{E}[\vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert^2] =\int_{\bm{x}\in D} \vert F(\bm{x})-f(\bm{x};\bm{\Theta})\vert^2p(\bm{x})d\bm{x} < \epsilon.
-\]
-!et
-
-
-!split
-===== More on the general approximation theorem =====
-
-None of the proofs give any insight into the relation between the
-number of of hidden layers and nodes and the approximation error
-$\epsilon$, nor the magnitudes of $\bm{W}$ and $\bm{b}$.
-
-Neural networks (NNs) have what we may call a kind of universality no matter what function we want to compute.
-
-!bblock
-It does not mean that an NN can be used to exactly compute any function. Rather, we get an approximation that is as good as we want. 
-!eblock
-
-
-!split
-===== Class of functions we can approximate =====
-
-!bblock
-The class of functions that can be approximated are the continuous ones.
-If the function $F(\bm{x})$ is discontinuous, it won't in general be possible to approximate it. However, an NN may still give an approximation even if we fail in some points.
-!eblock
-
-
-
-
-
-!split
-=====  Illustration of a single perceptron model and an FFNN =====
-
-FIGURE: [figures/nns.png, width=600 frac=0.7]  In a) we show a single perceptron model while in b) we dispay a network with two  hidden layers, an input layer and an output layer.
-
-
-!split
-===== Our network example, simple percepetron with one input =====
-
-As as simple example we define now a simple perceptron model with
-all quantities given by scalars. We consider only one input variable
-$x$ and one target value $y$.  We define an activation function
-$\sigma_1$ which takes as input
-
-!bt
-\[
-z_1 = w_1x+b_1,
-\]
-!et
-where $w_1$ is the weight and $b_1$ is the bias. These are the
-parameters we want to optimize.  This output is then fed into the
-_cost/loss_ function, which we here for the sake of simplicity just
-define as the squared error
-
-!bt
-\[
-C(x;w_1,b_1)=\frac{1}{2}(a_1-y)^2.
-\]
-!et
-
-
-!split
-===== Optimizing the parameters =====
-
-In setting up the feed forward and back propagation parts of the
-algorithm, we need now the derivative of the various variables we want
-to train.
-
-We need
-!bt
-\[
-\frac{\partial C}{\partial w_1} \hspace{0.1cm}\mathrm{and}\hspace{0.1cm}\frac{\partial C}{\partial b_1}. 
-\]
-!et
-
-Using the chain rule we find 
-!bt
-\[
-\frac{\partial C}{\partial w_1}=\frac{\partial C}{\partial a_1}\frac{\partial a_1}{\partial z_1}\frac{\partial z_1}{\partial w_1}=(a_1-y)\sigma_1'x,
-\]
-!et
-and
-!bt
-\[
-\frac{\partial C}{\partial b_1}=\frac{\partial C}{\partial a_1}\frac{\partial a_1}{\partial z_1}\frac{\partial z_1}{\partial b_1}=(a_1-y)\sigma_1',
-\]
-!et
-which we later will just define as
-!bt
-\[
-\frac{\partial C}{\partial a_1}\frac{\partial a_1}{\partial z_1}=\delta_1.
-\]
-!et
-
-!split
-===== Implementing the simple perceptron model =====
-
-In the example code here we implement the above equations (with explict
-expressions for the derivatives) with just one input variable $x$ and
-one output variable.  The target value $y=2x+1$ is a simple linear
-function in $x$. Since this is a regression problem, we define the cost function to be proportional to the least squares error
-!bt
-\[
-C(y,w_1,b_1)=\frac{1}{2}(a_1-y)^2,
-\]
-!et
-with $a_1$ the output from the network.
-
-!bc pycod
-# import necessary packages
-import numpy as np
-import matplotlib.pyplot as plt
-
-def feed_forward(x):
-    # weighted sum of inputs to the output layer
-    z_1 = x*output_weights + output_bias
-    # Output from output node (one node only)
-    # Here the output is equal to the input
-    a_1 = z_1
-    return a_1
-
-def backpropagation(x, y):
-    a_1 = feed_forward(x)
-    # derivative of cost function
-    derivative_cost = a_1 - y
-    # the variable delta in the equations, note that output a_1 = z_1, its derivatives wrt z_o is thus 1
-    delta_1 = derivative_cost
-    # gradients for the output layer
-    output_weights_gradient = delta_1*x
-    output_bias_gradient = delta_1
-    # The cost function is 0.5*(a_1-y)^2. This gives a measure of the error for each iteration
-    return output_weights_gradient, output_bias_gradient
-
-# ensure the same random numbers appear every time
-np.random.seed(0)
-# Input variable
-x = 4.0
-# Target values
-y = 2*x+1.0
-
-# Defining the neural network
-n_inputs = 1
-n_outputs = 1
-# Initialize the network
-# weights and bias in the output layer
-output_weights = np.random.randn()
-output_bias = np.random.randn()
-
-# implementing a simple gradient descent approach with fixed learning rate
-eta = 0.01
-for i in range(40):
-    # calculate gradients from back propagation
-    derivative_w1, derivative_b1 = backpropagation(x, y)
-    # update weights and biases
-    output_weights -= eta * derivative_w1
-    output_bias -= eta * derivative_b1
-# our final prediction after training
-ytilde = output_weights*x+output_bias
-print(0.5*((ytilde-y)**2))
-
-!ec
-Running this code gives us an acceptable results after some 40-50 iterations. Note that the results depend on the value of the learning rate.
-
-
-!split
-===== Central magic =====
-
-"Automatic differentiation":"https://en.wikipedia.org/wiki/Automatic_differentiation"
-
-
+===== Phase Transitions: Definitions =====
+ \begin{itemize}
+   \item A \emph{phase transition} is a qualitative change in the state of a system when a control parameter (e.g.\ temperature) passes a critical point.
+   \item \textbf{Order parameter}: quantity that distinguishes phases (e.g.\ magnetization $M$ for magnetic systems).
+   \item \textbf{Order vs disorder}: e.g.\ below $T_c$ a ferromagnet has $|M|>0$ (ordered), above $T_c$ $M=0$ (disordered).
+   \item Phases can break symmetries; transitions can be \emph{continuous} (second-order) or \emph{first-order}.
+ \end{itemize}
+\end{frame}
+
+===== {Order Parameter \& Symmetry Breaking}
+ \begin{itemize}
+   \item Phase transitions often involve spontaneous symmetry breaking (e.g.\ Ising model $Z_2$ symmetry).
+   \item The order parameter (e.g.\ magnetization $M = \frac{1}{N}\sum_i s_i$) changes behavior at $T_c$.
+   \item In ferromagnets: $M=0$ for $T>T_c$ (symmetric paramagnet), $M\neq 0$ for $T<T_c$ (broken symmetry).
+   \item Example: in 2D Ising model, two symmetric ordered states (up/down) below $T_c$.
+ \end{itemize}
+\end{frame}
+
+===== {Critical Phenomena and Scaling}
+ \begin{itemize}
+   \item Near a continuous transition, observables follow power laws: $M \sim |T-T_c|^\beta$, correlation length $\xi \sim |T-T_c|^{-\nu}$, etc.
+   \item \textbf{Critical exponents} ($\alpha,\beta,\gamma,\nu,\dots$) characterize singular behavior.
+   \item Universality: systems with the same symmetry and dimension share exponents.
+   \item E.g.\ 2D Ising exponents known analytically (Onsager).
+   \item At $T\to T_c$, correlation length $\xi\to\infty$, large-scale fluctuations appear.
+ \end{itemize}
+\end{frame}
+
+\section{Spin Models: 2D Ising and Potts}
+
+===== {2D Ising Model: Definition}
+ \begin{itemize}
+   \item Spins $s_i = \pm 1$ on a 2D square lattice, nearest-neighbor ferromagnetic coupling.
+   \item Hamiltonian:
+     \[
+       H = -J \sum_{\langle i,j\rangle} s_i s_j,
+     \]
+     with $J>0$ favoring alignment.
+   \item Exhibits a second-order phase transition at critical temperature $T_c$.
+   \item Order parameter: magnetization $M = \frac{1}{N}\sum_i s_i$.
+   \item Below $T_c$, $M\neq0$ (ferromagnetic order); above $T_c$, $M=0$ (paramagnet).
+ \end{itemize}
+\end{frame}
+
+===== {2D Ising Model: Critical Temperature}
+ \begin{itemize}
+   \item Exact result (Onsager): critical point $T_c$ satisfies
+     \[
+       \frac{2J}{k_B T_c} = \ln(1+\sqrt{2}) \quad\Rightarrow\quad T_c \approx \frac{2J}{\ln(1+\sqrt{2})}\approx 2.269J.
+     \]
+     (For simplicity set $k_B=1$) 
+   \item At $T>T_c$: spins are mostly disordered, no net magnetization.
+   \item At $T<T_c$: long-range order develops (nonzero $M$).
+   \item Correlation length $\xi$ diverges at $T_c$ 
+   \item Example: at $T=T_c$ large clusters of aligned spins appear.
+ \end{itemize}
+\end{frame}
+
+===== {q-State Potts Model: Definition}
+ \begin{itemize}
+   \item Generalization of Ising: each spin $s_i \in \{1,2,\dots,q\}$.
+   \item Ferromagnetic Potts Hamiltonian:
+     \[
+       H = -J \sum_{\langle i,j\rangle} \delta_{s_i,s_j},
+     \]
+     where $\delta_{a,b}=1$ if $a=b$, else $0$.
+   \item If $q=2$, reduces to the Ising model. Higher $q$ allows richer symmetry breaking ($\mathbb{Z}_q$).
+   \item Widely used to study phase transitions with multiple equivalent ordered states.
+ \end{itemize}
+\end{frame}
+
+===== {2D Potts Model: Phase Behavior}
+ \begin{itemize}
+   \item In 2D, the ferromagnetic Potts model has a phase transition for all $q\ge1$ 
+   \item Exact critical point:
+     \[
+       \frac{J}{k_B T_c} = \ln\!\bigl(1+\sqrt{q}\bigr).
+     \]
+   \item The nature of the transition depends on $q$ 
+     \begin{itemize}
+       \item $1 \le q \le 4$: continuous (second-order) transition.
+       \item $q > 4$: discontinuous (first-order) transition (latent heat appears).
+     \end{itemize}
+   \item Example: $q=3,4$ have continuous transitions; $q=5$ and higher show first-order behavior.
+ \end{itemize}
+\end{frame}
+
+\section{Monte Carlo Simulation}
+
+===== {Monte Carlo Sampling of Spin Models}
+ \begin{itemize}
+   \item Use Monte Carlo (MC) to generate spin configurations at given $T$:
+     sample from Boltzmann distribution $P\propto e^{-H/T}$.
+   \item Metropolis algorithm: attempt random single-spin flips to equilibrate the system.
+   \item Provides training data: spin configurations $\{s_i\}$ labeled by temperature or phase.
+   \item Ensures statistical equilibrium and detailed balance 
+   \item Efficient sampling (especially near $T_c$ cluster algorithms help, e.g.\ Wolff or Swendsen-Wang).
+ \end{itemize}
+\end{frame}
+
+===== {Metropolis Algorithm (Concept)}
+ \begin{itemize}
+   \item Initialize spins randomly or in a fixed state.
+   \item Repeat for many steps:
+     \begin{enumerate}
+       \item Pick a random lattice site $i$.
+       \item Propose flipping $s_i \to -s_i$ (Ising) or change state (Potts).
+       \item Compute energy change $\Delta E$.
+       \item If $\Delta E \le 0$, accept the flip (lower energy).
+       \item Else accept with probability $\exp(-\Delta E/T)$ (Boltzmann factor) 
+       \item Otherwise, reject and keep the old state.
+     \end{enumerate}
+   \item After equilibration, record configurations as samples.
+ \end{itemize}
+\end{frame}
+
+===== [fragile]{Metropolis Algorithm (Pseudo-code)}
+ \begin{lstlisting}[language=Python]
+for T in temperature_list:
+   # Initialize lattice (e.g., random spins)
+   config = random_configuration(Lx, Ly)
+   for step in range(num_steps):
+       i,j = random_site()
+       dE = compute_deltaE(config, i, j)  # energy change if spin flipped
+       if dE <= 0 or rand() < exp(-dE/T):
+           flip_spin(config, i, j)
+   record_configuration(config, T)
+ \end{lstlisting}
+\end{frame}
+
+===== {Monte Carlo Data for ML}
+ \begin{itemize}
+   \item Generate many spin configurations across a range of temperatures $T$.
+   \item Label each configuration by its temperature or by phase (ordered/disordered).
+   \item This labeled dataset is used for \emph{supervised} methods (e.g.\ CNN).
+   \item For \emph{unsupervised} methods (PCA, VAE), labels are not used in training.
+   \item Data augmentation: one can use symmetries (e.g.\ spin flip) to enlarge dataset.
+ \end{itemize}
+\end{frame}
+
+\section{Unsupervised Learning: PCA}
+
+===== {Principal Component Analysis (PCA) Basics}
+ \begin{itemize}
+   \item PCA is an unsupervised method for dimensionality reduction.
+   \item Finds orthogonal directions (principal components) of maximum variance in data.
+   \item Project data onto the first few PCs to visualize structure.
+   \item Advantages: linear, fast, and interpretable (PCs are linear combinations of features).
+   \item Disadvantage: only captures linear correlations (may miss complex features).
+ \end{itemize}
+\end{frame}
+
+===== {PCA for Phase Identification}
+ \begin{itemize}
+   \item Apply PCA to the ensemble of spin configurations (flattened to vectors).
+   \item The first principal component (PC1) often correlates with the order parameter (e.g.\ magnetization).
+   \item Hu et al. (2017) found PCA distinguishes different phases and can locate critical points 
+   \item By plotting data in the subspace of PCs, one sees separation of low-$T$ (ordered) vs high-$T$ (disordered) points.
+   \item No labels needed: phase transitions are revealed by clustering in PC space 
+ \end{itemize}
+\end{frame}
+
+===== {PCA Workflow for Spin Data}
+ \begin{itemize}
+   \item Collect data matrix $X$ of shape (num\_samples) $\times$ (num\_features), e.g. $N\times (L\times L)$.
+   \item Subtract the mean from each column (feature) of $X$.
+   \item Compute covariance matrix $C = X^T X$ (or use SVD on $X$ directly).
+   \item Obtain eigenvalues/vectors of $C$: $C = U \Lambda U^T$. Columns of $U$ are principal directions.
+   \item Sort by eigenvalues (variance). Project $X$ onto top $k$ PCs: $X_{\rm red} = X\,U[:,1:k]$.
+   \item Analyze $X_{\rm red}$: e.g.\ scatter plot PC1 vs PC2.
+ \end{itemize}
+\end{frame}
+
+===== {PCA Example: Ising Model}
+ \begin{itemize}
+   \item In the 2D Ising model, PC1 is essentially proportional to the overall magnetization.
+   \item At $T < T_c$, configurations cluster with large positive or negative PC1 (ordered states).
+   \item At $T > T_c$, configurations cluster near PC1 ≈ 0 (disordered).
+   \item The variance captured by PC1 drops sharply at $T_c$, signaling the transition.
+   \item PCA automatically finds these features, without knowing the physics a priori 
+ \end{itemize}
+\end{frame}
+
+===== {PCA Limitations}
+ \begin{itemize}
+   \item PCA is linear: complex nonlinear features (e.g.\ vortex order) may not be captured.
+   \item Example: In a frustrated 2D spin model, PCA failed to detect certain correlations (vorticity) 
+   \item PCA does not directly classify; it provides features for clustering or visualization.
+   \item Sensitive to scaling: data should be normalized appropriately.
+   \item Still useful as a first-pass: identifies the most significant variations 
+ \end{itemize}
+\end{frame}
+
+===== [fragile]{PCA with PyTorch (Example Code)}
+ \begin{lstlisting}[language=Python]
+import torch
+
+# X: tensor of shape (N, L*L) containing spin configurations as floats (e.g. +1/-1)
+# Center the data
+X = X - X.mean(dim=0, keepdim=True)
+
+# Compute covariance (or use torch.pca_lowrank)
+cov = torch.mm(X.t(), X) / (X.size(0)-1)
+
+# Eigen-decomposition (SVD) of covariance
+U, S, V = torch.svd(cov)
+
+# Select first k principal components
+k = 2
+PCs = U[:, :k]  # shape (L*L, k)
+
+# Project data onto principal components
+X_reduced = torch.mm(X, PCs)  # shape (N, k)
+ \end{lstlisting}
+\end{frame}
+
+\section{Supervised Learning: CNNs}
+
+===== {Convolutional Neural Networks (CNNs)}
+ \begin{itemize}
+   \item CNNs are deep neural networks designed for spatial data (e.g.\ images).
+   \item Architecture: convolutional layers (feature detectors) + pooling, followed by fully connected layers.
+   \item In physics: treat spin lattice as an image with multiple channels (e.g.\ one channel of spins).
+   \item CNNs can learn complex nonlinear features automatically from data.
+   \item They require labeled examples for training (supervised learning).
+ \end{itemize}
+\end{frame}
+
+===== {CNN for Phase Classification}
+ \begin{itemize}
+   \item Prepare training data: spin configurations labeled by phase or temperature.
+   \item CNN learns to map configuration $\to$ phase label (ordered/disordered) or predict $T$.
+   \item As shown by Carrasquilla and Melko (2017), CNNs can identify phases from raw states 
+   \item Achieves high accuracy on Ising and other models when training labels are available.
+   \item CNNs exploit locality: can detect clusters or domains of aligned spins via convolution filters.
+ \end{itemize}
+\end{frame}
+
+===== {Example CNN Architecture}
+ \begin{itemize}
+   \item \textbf{Input}: single-channel $L\times L$ lattice (values $-1$ or $+1$).
+   \item \textbf{Conv layer 1}: e.g.\ 8 filters of size $3\times3$, ReLU activation, stride=1, padding=1.
+   \item \textbf{Conv layer 2}: 16 filters of size $3\times3$, ReLU, followed by a $2\times2$ max-pooling.
+   \item \textbf{Fully Connected}: flatten feature maps to vector; FC layer to 64 units (ReLU); final FC to 2 outputs (softmax for binary phase).
+   \item \textbf{Training}: minimize cross-entropy loss between predicted and true labels.
+   \item \textbf{Note}: architecture and hyperparameters can be tuned for best performance.
+ \end{itemize}
+\end{frame}
+
+===== {CNN: Training and Results}
+ \begin{itemize}
+   \item Train on many labeled samples (e.g.\ temperatures $T$ and whether $T<T_c$ or $T>T_c$).
+   \item The network learns features such as magnetization domains, energy patterns, etc.
+   \item CNN accuracy can be very high (often $\sim$100\% on clean data) for distinguishing phases.
+   \item Fukushima \& Sakai (2021): a CNN trained on 2D Ising can detect transition in $q$-state Potts 
+   \item CNN behavior: at high $T$ it effectively uses average energy; at low $T$ it correlates with magnetization 
+ \end{itemize}
+\end{frame}
+
+===== {CNN Interpretability}
+ \begin{itemize}
+   \item CNNs are often seen as "black boxes", but their learned filters can sometimes be interpreted.
+   \item Outputs correlate with known physics:
+     \begin{itemize}
+       \item At low $T$: classification heavily influenced by magnetization (order).
+       \item At high $T$: classification influenced by internal energy (disorder) 
+     \end{itemize}
+   \item CNNs can generalize: e.g.\ Ising-trained CNN finds Potts $T_c$ 
+   \item Visualization methods (e.g.\ saliency maps) can highlight what CNN focuses on.
+ \end{itemize}
+\end{frame}
+
+===== [fragile]{CNN (PyTorch) Code Example}
+ \begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class PhaseCNN(nn.Module):
+   def __init__(self, L):
+       super(PhaseCNN, self).__init__()
+       self.conv1 = nn.Conv2d(1, 8, kernel_size=3, padding=1)  # 1 channel -> 8
+       self.conv2 = nn.Conv2d(8, 16, kernel_size=3, padding=1) # 8 -> 16
+       self.pool = nn.MaxPool2d(2)  # downsample by 2
+       self.fc1 = nn.Linear(16 * (L//2) * (L//2), 64)
+       self.fc2 = nn.Linear(64, 2)  # 2 output classes
+
+   def forward(self, x):
+       x = F.relu(self.conv1(x))      # (B,8,L,L)
+       x = self.pool(F.relu(self.conv2(x)))  # (B,16,L/2,L/2)
+       x = x.view(x.size(0), -1)      # flatten
+       x = F.relu(self.fc1(x))
+       x = self.fc2(x)               # logits for 2 classes
+       return x
+
+# Example usage:
+model = PhaseCNN(L=32)           # for a 32x32 lattice
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+ \end{lstlisting}
+\end{frame}
+
+\section{Unsupervised Learning: Variational Autoencoders}
+
+===== {Variational Autoencoders (VAE) Overview}
+ \begin{itemize}
+   \item A VAE is an \emph{unsupervised} generative model that learns a latent representation of data.
+   \item Components:
+     \begin{itemize}
+       \item \textbf{Encoder}: maps input $X$ to parameters $(\mu, \log\sigma^2)$ of a latent Gaussian.
+       \item \textbf{Latent $z$}: sampled via $z = \mu + \sigma \epsilon$ ($\epsilon\sim N(0,I)$).
+       \item \textbf{Decoder}: reconstructs input $\hat{X}$ from $z$.
+     \end{itemize}
+   \item Loss: reconstruction error + KL divergence to enforce latent prior $\mathcal{N}(0,I)$.
+   \item VAEs can both encode data compactly and generate new samples by sampling $z$.
+ \end{itemize}
+\end{frame}
+
+===== {VAE for Spin Configurations}
+ \begin{itemize}
+   \item Train VAE on spin configurations (no labels).
+   \item Latent space (usually low-dimensional) captures key features (like order parameter).
+   \item Walker et al. (2020): latent variables provide metrics to track order vs disorder in Ising 
+   \item They found the latent representation closely corresponds to physical order (magnetization) 
+   \item After training, one can:
+     \begin{itemize}
+       \item Inspect latent space (e.g.\ scatter plot of $(\mu_1,\mu_2)$) to distinguish phases.
+       \item Sample $z\sim N(0,1)$ and decode to generate synthetic configurations.
+     \end{itemize}
+ \end{itemize}
+\end{frame}
+
+===== {VAE Architecture Details}
+ \begin{itemize}
+   \item Typically use convolutional encoder/decoder for 2D structure.
+   \item Example:
+     \begin{itemize}
+       \item Encoder: conv layers downsampling to a flat vector $\rightarrow$ linear layers $\rightarrow (\mu, \log\sigma^2)$ (size of latent space, e.g.\ 2–10 dims).
+       \item Decoder: linear layer from $z$ to feature map size, followed by transposed-conv layers to reconstruct $L\times L$ lattice.
+     \end{itemize}
+   \item Activation: ReLU (or LeakyReLU); final output often sigmoid to model spin distribution.
+   \item Training with minibatch gradient descent optimizing
+     \[
+       \mathcal{L} = \mathbb{E}[\|X - \hat{X}\|^2] +
+       \mathrm{KL}(\mathcal{N}(\mu,\sigma)\,\|\,\mathcal{N}(0,1)).
+     \]
+ \end{itemize}
+\end{frame}
+
+===== {VAE Results on Ising Model}
+ \begin{itemize}
+   \item The first latent dimension ($\nu_0$) learned by the VAE correlated strongly with magnetization 
+   \item Plotting $\nu_0$ vs temperature shows clear change around $T_c$ (order–disorder).
+   \item This means VAE "discovered" the order parameter without supervision.
+   \item The VAE predicted the critical region and crossover consistently with theory 
+   \item Latent space clustering: ordered-phase points separate from disordered.
+ \end{itemize}
+\end{frame}
+
+===== {VAE: Generation and Interpretation}
+ \begin{itemize}
+   \item After training, sample random $z$ from Gaussian prior and decode to generate configurations.
+   \item The VAE latent space is continuous: can interpolate between phases.
+   \item The learned representation is smooth and disentangled: one latent coordinate tracks magnetization, others track disorder.
+   \item VAEs can also be used for anomaly detection: points with unusual $z$ indicate atypical states.
+   \item Overall, VAEs provide both a dimensionally-reduced view of phase structure and a generative model.
+ \end{itemize}
+\end{frame}
+
+===== [fragile]{VAE (PyTorch) Code Example}
+ \begin{lstlisting}[language=Python]
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class VAE(nn.Module):
+   def __init__(self, L, latent_dim=2):
+       super(VAE, self).__init__()
+       # Encoder: conv -> conv -> flatten -> fc_mu/fc_logvar
+       self.encoder = nn.Sequential(
+           nn.Conv2d(1, 8, 3, stride=2, padding=1),   # -> (8, L/2, L/2)
+           nn.ReLU(),
+           nn.Conv2d(8, 16, 3, stride=2, padding=1),  # -> (16, L/4, L/4)
+           nn.ReLU(),
+           nn.Flatten()
+       )
+       self.fc_mu = nn.Linear(16*(L//4)*(L//4), latent_dim)
+       self.fc_logvar = nn.Linear(16*(L//4)*(L//4), latent_dim)
+
+       # Decoder: linear -> unflatten -> convTranspose -> convTranspose
+       self.decoder_fc = nn.Linear(latent_dim, 16*(L//4)*(L//4))
+       self.decoder = nn.Sequential(
+           nn.Unflatten(1, (16, L//4, L//4)),
+           nn.ConvTranspose2d(16, 8, 3, stride=2, padding=1, output_padding=1),  # -> (8, L/2, L/2)
+           nn.ReLU(),
+           nn.ConvTranspose2d(8, 1, 3, stride=2, padding=1, output_padding=1),   # -> (1, L, L)
+           nn.Sigmoid()
+       )
+
+   def encode(self, x):
+       h = self.encoder(x)
+       mu = self.fc_mu(h)
+       logvar = self.fc_logvar(h)
+       return mu, logvar
+
+   def reparameterize(self, mu, logvar):
+       std = torch.exp(0.5*logvar)
+       eps = torch.randn_like(std)
+       return mu + eps * std
+
+   def decode(self, z):
+       h = self.decoder_fc(z)
+       x_recon = self.decoder(h)
+       return x_recon
+
+   def forward(self, x):
+       mu, logvar = self.encode(x)
+       z = self.reparameterize(mu, logvar)
+       x_recon = self.decode(z)
+       return x_recon, mu, logvar
+
+# Example instantiation:
+model = VAE(L=32, latent_dim=2)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+ \end{lstlisting}
+\end{frame}
+
+\section{Comparison of Methods}
+
+===== {Supervised vs Unsupervised Methods}
+ \begin{itemize}
+   \item \textbf{Supervised (CNN)}: Requires labeled data (phase labels or temperatures). Learns a direct mapping $\{\text{config}\}\to\{\text{phase}\}$.
+   \item \textbf{Unsupervised (PCA, VAE)}: Uses only the raw configurations without labels. Learns features or representations of the data.
+   \item PCA reduces dimensionality; requires no training labels 
+   \item VAE learns a latent generative model; also label-free 
+   \item CNN typically achieves higher accuracy in classifying known phases, but needs supervised labels.
+ \end{itemize}
+\end{frame}
+
+===== {Method Interpretability and Features}
+ \begin{itemize}
+   \item \textbf{PCA}: Principal components often have clear physical meaning (e.g.\ PC1 and  magnetization) 
+   \item \textbf{CNN}: Filters are less directly interpretable; features are learned. However, some correlation with physics (energy, $M$) emerges 
+   \item \textbf{VAE}: Latent variables can often be interpreted as order/disorder features (e.g.\ one latent ≈ magnetization) 
+   \item CNN is a "black box" classifier; PCA/VAE provide insight into data structure.
+   \item In terms of visualization: PCA and VAE produce low-dim plots of data (semi-transparent), whereas CNN only outputs a decision boundary.
+ \end{itemize}
+\end{frame}
+
+===== {Performance and Use Cases}
+ \begin{itemize}
+   \item \textbf{PCA}: Fast to compute; good for preliminary analysis of large datasets. Best for linearizable transitions.
+   \item \textbf{CNN}: High classification accuracy; powerful for large and complex datasets. Can predict critical $T$ or classify multiple phases 
+   \item \textbf{VAE}: Useful when no labels are available; provides a generative model. Effective in detecting transitions by latent statistics 
+   \item Computational cost: PCA very cheap, CNN and VAE require training time (GPU recommended for large data).
+   \item Choosing a method: depends on data availability and goal (classification vs insight vs generation).
+ \end{itemize}
+\end{frame}
+
+
+===== {Summary of Methods}
+ \begin{itemize}
+   \item \textbf{PCA}: Unsupervised, linear, interpretable. Good for dimensionality reduction and initial exploration
+   \item \textbf{CNN}: Supervised, non-linear, high accuracy. Requires labels, but learns complex features (works across models 
+   \item \textbf{VAE}: Unsupervised, generative. Learns latent representation reflecting order/disorder 
+   \item Each method has trade-offs in accuracy, interpretability, and data requirements.
+   \item Combining methods (e.g.\ using PCA or VAE features as input to another classifier) can also be fruitful.
+ \end{itemize}
+\end{frame}
+
+\section{Conclusions}
+
+===== {Conclusions}
+ \begin{itemize}
+   \item Machine learning provides powerful tools for studying phase transitions in statistical models.
+   \item \emph{Unsupervised} methods (PCA, VAE) can discover phase structure without labels 
+   \item \emph{Supervised} methods (CNNs) achieve high classification performance given labeled data 
+   \item Interpretability: PCA/VAE offer more insight into physics (latent/PC represent order parameters), while CNNs focus on prediction accuracy.
+   \item Choice of method depends on the problem: data availability, need for generative modeling, and interpretability.
+   \item Future directions: deeper architectures (e.g.\ ResNets), unsupervised generative flows, transfer learning across models, real experimental data.
+ \end{itemize}
+\end{frame}
+
+===== {References}
+ \begin{itemize}
+   \item Carrasquilla, J. \& Melko, R. G. (2017). Machine learning phases of matter. \emph{Nature Physics}, 13, 431–434 
+   \item Hu, W. \textit{et al.} (2017). Discovering phases, phase transitions through unsupervised ML. \emph{Phys. Rev. E} 95, 062122 
+   \item Fukushima, K. \& Sakai, K. (2021). Can a CNN trained on Ising detect Potts? \emph{Prog. Theor. Exp. Phys.} 2021, 061A01 
+   \item Walker, N. \textit{et al.} (2020). 2D Ising model crossover via VAE. \emph{Sci. Rep.} 10, 13047
+ \item Add refs
+ \end{itemize}
+\end{frame}
 
