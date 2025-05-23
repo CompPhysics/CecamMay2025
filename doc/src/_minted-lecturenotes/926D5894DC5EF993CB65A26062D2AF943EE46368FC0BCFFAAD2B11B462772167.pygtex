@@ -1,0 +1,12 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k}{for} \PYG{n}{T} \PYG{o+ow}{in} \PYG{n}{temperature\PYGZus{}list}\PYG{p}{:}
+   \PYG{c+c1}{\PYGZsh{} Initialize lattice (e.g., random spins)}
+   \PYG{n}{config} \PYG{o}{=} \PYG{n}{random\PYGZus{}configuration}\PYG{p}{(}\PYG{n}{Lx}\PYG{p}{,} \PYG{n}{Ly}\PYG{p}{)}
+   \PYG{k}{for} \PYG{n}{step} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n}{num\PYGZus{}steps}\PYG{p}{):}
+       \PYG{n}{i}\PYG{p}{,}\PYG{n}{j} \PYG{o}{=} \PYG{n}{random\PYGZus{}site}\PYG{p}{()}
+       \PYG{n}{dE} \PYG{o}{=} \PYG{n}{compute\PYGZus{}deltaE}\PYG{p}{(}\PYG{n}{config}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{j}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} energy change if spin flipped}
+       \PYG{k}{if} \PYG{n}{dE} \PYG{o}{\PYGZlt{}=} \PYG{l+m+mi}{0} \PYG{o+ow}{or} \PYG{n}{rand}\PYG{p}{()} \PYG{o}{\PYGZlt{}} \PYG{n}{exp}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{n}{dE}\PYG{o}{/}\PYG{n}{T}\PYG{p}{):}
+           \PYG{n}{flip\PYGZus{}spin}\PYG{p}{(}\PYG{n}{config}\PYG{p}{,} \PYG{n}{i}\PYG{p}{,} \PYG{n}{j}\PYG{p}{)}
+   \PYG{n}{record\PYGZus{}configuration}\PYG{p}{(}\PYG{n}{config}\PYG{p}{,} \PYG{n}{T}\PYG{p}{)}
+
+\end{Verbatim}

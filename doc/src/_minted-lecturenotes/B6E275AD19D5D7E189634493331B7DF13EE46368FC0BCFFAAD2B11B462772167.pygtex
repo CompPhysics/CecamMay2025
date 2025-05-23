@@ -1,0 +1,28 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+\PYG{k+kn}{import} \PYG{n+nn}{torch}
+\PYG{k+kn}{import} \PYG{n+nn}{torch.nn} \PYG{k}{as} \PYG{n+nn}{nn}
+\PYG{k+kn}{import} \PYG{n+nn}{torch.nn.functional} \PYG{k}{as} \PYG{n+nn}{F}
+
+\PYG{k}{class} \PYG{n+nc}{PhaseCNN}\PYG{p}{(}\PYG{n}{nn}\PYG{o}{.}\PYG{n}{Module}\PYG{p}{):}
+   \PYG{k}{def} \PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{L}\PYG{p}{):}
+       \PYG{n+nb}{super}\PYG{p}{(}\PYG{n}{PhaseCNN}\PYG{p}{,} \PYG{n+nb+bp}{self}\PYG{p}{)}\PYG{o}{.}\PYG{n+nf+fm}{\PYGZus{}\PYGZus{}init\PYGZus{}\PYGZus{}}\PYG{p}{()}
+       \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{conv1} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Conv2d}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{8}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{padding}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} 1 channel \PYGZhy{}\PYGZgt{} 8}
+       \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{conv2} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Conv2d}\PYG{p}{(}\PYG{l+m+mi}{8}\PYG{p}{,} \PYG{l+m+mi}{16}\PYG{p}{,} \PYG{n}{kernel\PYGZus{}size}\PYG{o}{=}\PYG{l+m+mi}{3}\PYG{p}{,} \PYG{n}{padding}\PYG{o}{=}\PYG{l+m+mi}{1}\PYG{p}{)} \PYG{c+c1}{\PYGZsh{} 8 \PYGZhy{}\PYGZgt{} 16}
+       \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{pool} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{MaxPool2d}\PYG{p}{(}\PYG{l+m+mi}{2}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} downsample by 2}
+       \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{fc1} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}\PYG{l+m+mi}{16} \PYG{o}{*} \PYG{p}{(}\PYG{n}{L}\PYG{o}{//}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{*} \PYG{p}{(}\PYG{n}{L}\PYG{o}{//}\PYG{l+m+mi}{2}\PYG{p}{),} \PYG{l+m+mi}{64}\PYG{p}{)}
+       \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{fc2} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{Linear}\PYG{p}{(}\PYG{l+m+mi}{64}\PYG{p}{,} \PYG{l+m+mi}{2}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} 2 output classes}
+
+   \PYG{k}{def} \PYG{n+nf}{forward}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{p}{,} \PYG{n}{x}\PYG{p}{):}
+       \PYG{n}{x} \PYG{o}{=} \PYG{n}{F}\PYG{o}{.}\PYG{n}{relu}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{conv1}\PYG{p}{(}\PYG{n}{x}\PYG{p}{))}      \PYG{c+c1}{\PYGZsh{} (B,8,L,L)}
+       \PYG{n}{x} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{pool}\PYG{p}{(}\PYG{n}{F}\PYG{o}{.}\PYG{n}{relu}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{conv2}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)))}  \PYG{c+c1}{\PYGZsh{} (B,16,L/2,L/2)}
+       \PYG{n}{x} \PYG{o}{=} \PYG{n}{x}\PYG{o}{.}\PYG{n}{view}\PYG{p}{(}\PYG{n}{x}\PYG{o}{.}\PYG{n}{size}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{)}      \PYG{c+c1}{\PYGZsh{} flatten}
+       \PYG{n}{x} \PYG{o}{=} \PYG{n}{F}\PYG{o}{.}\PYG{n}{relu}\PYG{p}{(}\PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{fc1}\PYG{p}{(}\PYG{n}{x}\PYG{p}{))}
+       \PYG{n}{x} \PYG{o}{=} \PYG{n+nb+bp}{self}\PYG{o}{.}\PYG{n}{fc2}\PYG{p}{(}\PYG{n}{x}\PYG{p}{)}               \PYG{c+c1}{\PYGZsh{} logits for 2 classes}
+       \PYG{k}{return} \PYG{n}{x}
+
+\PYG{c+c1}{\PYGZsh{} Example usage:}
+\PYG{n}{model} \PYG{o}{=} \PYG{n}{PhaseCNN}\PYG{p}{(}\PYG{n}{L}\PYG{o}{=}\PYG{l+m+mi}{32}\PYG{p}{)}           \PYG{c+c1}{\PYGZsh{} for a 32x32 lattice}
+\PYG{n}{criterion} \PYG{o}{=} \PYG{n}{nn}\PYG{o}{.}\PYG{n}{CrossEntropyLoss}\PYG{p}{()}
+\PYG{n}{optimizer} \PYG{o}{=} \PYG{n}{torch}\PYG{o}{.}\PYG{n}{optim}\PYG{o}{.}\PYG{n}{Adam}\PYG{p}{(}\PYG{n}{model}\PYG{o}{.}\PYG{n}{parameters}\PYG{p}{(),} \PYG{n}{lr}\PYG{o}{=}\PYG{l+m+mf}{1e\PYGZhy{}3}\PYG{p}{)}
+
+\end{Verbatim}

@@ -1,0 +1,370 @@
+<!--
+HTML file automatically generated from DocOnce source
+(https://github.com/doconce/doconce/)
+doconce format html lecturenotes.do.txt --html_style=bootstrap --pygments_html_style=default --html_admon=bootstrap_panel --html_output=lecturenotes-bs --no_mako
+-->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="DocOnce: https://github.com/doconce/doconce/" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Using Machine Learning to Classify Phase Transitions">
+<title>Using Machine Learning to Classify Phase Transitions</title>
+<!-- Bootstrap style: bootstrap -->
+<!-- doconce format html lecturenotes.do.txt --html_style=bootstrap --pygments_html_style=default --html_admon=bootstrap_panel --html_output=lecturenotes-bs --no_mako -->
+<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+<!-- not necessary
+<link href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+-->
+<style type="text/css">
+/* Add scrollbar to dropdown menus in bootstrap navigation bar */
+.dropdown-menu {
+   height: auto;
+   max-height: 400px;
+   overflow-x: hidden;
+}
+/* Adds an invisible element before each target to offset for the navigation
+   bar */
+.anchor::before {
+  content:"";
+  display:block;
+  height:50px;      /* fixed header height for style bootstrap */
+  margin:-50px 0 0; /* negative fixed header height */
+}
+</style>
+</head>
+
+<!-- tocinfo
+{'highest level': 2,
+ 'sections': [('What is this about?', 2, None, 'what-is-this-about'),
+              ('AI/ML and some statements you may have heard (and what do they '
+               'mean?)',
+               2,
+               None,
+               'ai-ml-and-some-statements-you-may-have-heard-and-what-do-they-mean'),
+              ('Types of machine learning',
+               2,
+               None,
+               'types-of-machine-learning'),
+              ('Main categories', 2, None, 'main-categories'),
+              ('The plethora  of machine learning algorithms/methods',
+               2,
+               None,
+               'the-plethora-of-machine-learning-algorithms-methods'),
+              ('Example of generative modeling, "taken from Generative Deep '
+               'Learning by David '
+               'Foster":"https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html"',
+               2,
+               None,
+               'example-of-generative-modeling-taken-from-generative-deep-learning-by-david-foster-https-www-oreilly-com-library-view-generative-deep-learning-9781098134174-ch01-html'),
+              ('Example of discriminative modeling, "taken from Generative '
+               'Deeep Learning by David '
+               'Foster":"https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html"',
+               2,
+               None,
+               'example-of-discriminative-modeling-taken-from-generative-deeep-learning-by-david-foster-https-www-oreilly-com-library-view-generative-deep-learning-9781098134174-ch01-html'),
+              ('Taxonomy of generative deep learning, "taken from Generative '
+               'Deep Learning by David '
+               'Foster":"https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html"',
+               2,
+               None,
+               'taxonomy-of-generative-deep-learning-taken-from-generative-deep-learning-by-david-foster-https-www-oreilly-com-library-view-generative-deep-learning-9781098134174-ch01-html'),
+              ('Good books with hands-on material and codes',
+               2,
+               None,
+               'good-books-with-hands-on-material-and-codes'),
+              ('What are the basic Machine Learning ingredients?',
+               2,
+               None,
+               'what-are-the-basic-machine-learning-ingredients'),
+              ('Low-level machine learning, the family of ordinary least '
+               'squares methods',
+               2,
+               None,
+               'low-level-machine-learning-the-family-of-ordinary-least-squares-methods'),
+              ('Setting up the equations', 2, None, 'setting-up-the-equations'),
+              ('The objective/cost/loss function',
+               2,
+               None,
+               'the-objective-cost-loss-function'),
+              ('Training solution', 2, None, 'training-solution'),
+              ('Selected references', 2, None, 'selected-references'),
+              ('Machine learning. A simple perspective on the interface '
+               'between ML and Physics',
+               2,
+               None,
+               'machine-learning-a-simple-perspective-on-the-interface-between-ml-and-physics'),
+              ('ML in Nuclear  Physics (or any field in physics)',
+               2,
+               None,
+               'ml-in-nuclear-physics-or-any-field-in-physics'),
+              ('Phase Transitions and Critical Phenomena',
+               2,
+               None,
+               'phase-transitions-and-critical-phenomena'),
+              ('Phase Transitions: Definitions',
+               2,
+               None,
+               'phase-transitions-definitions'),
+              ('Order Parameter and Symmetry Breaking',
+               2,
+               None,
+               'order-parameter-and-symmetry-breaking'),
+              ('Critical Phenomena and Scaling',
+               2,
+               None,
+               'critical-phenomena-and-scaling'),
+              ('2D Ising Model: Definition',
+               2,
+               None,
+               '2d-ising-model-definition'),
+              ('2D Ising Model: Critical Temperature',
+               2,
+               None,
+               '2d-ising-model-critical-temperature'),
+              ('q-State Potts Model: Definition',
+               2,
+               None,
+               'q-state-potts-model-definition'),
+              ('2D Potts Model: Phase Behavior',
+               2,
+               None,
+               '2d-potts-model-phase-behavior'),
+              ('Monte Carlo Sampling of Spin Models',
+               2,
+               None,
+               'monte-carlo-sampling-of-spin-models'),
+              ('Metropolis Algorithm', 2, None, 'metropolis-algorithm'),
+              ('Metropolis Algorithm (Pseudo-code)',
+               2,
+               None,
+               'metropolis-algorithm-pseudo-code'),
+              ('Monte Carlo Data for ML', 2, None, 'monte-carlo-data-for-ml'),
+              ('Principal Component Analysis (PCA) Basics',
+               2,
+               None,
+               'principal-component-analysis-pca-basics'),
+              ('PCA for Phase Identification',
+               2,
+               None,
+               'pca-for-phase-identification'),
+              ('PCA Workflow for Spin Data',
+               2,
+               None,
+               'pca-workflow-for-spin-data'),
+              ('PCA Example: Ising Model', 2, None, 'pca-example-ising-model'),
+              ('PCA Limitations', 2, None, 'pca-limitations'),
+              ('PCA with PyTorch (Example Code)',
+               2,
+               None,
+               'pca-with-pytorch-example-code'),
+              ('Convolutional Neural Networks (CNNs)',
+               2,
+               None,
+               'convolutional-neural-networks-cnns'),
+              ('CNN for Phase Classification',
+               2,
+               None,
+               'cnn-for-phase-classification'),
+              ('Example CNN Architecture', 2, None, 'example-cnn-architecture'),
+              ('CNN: Training and Results',
+               2,
+               None,
+               'cnn-training-and-results'),
+              ('CNN Interpretability', 2, None, 'cnn-interpretability'),
+              ('CNN (PyTorch) Code Example',
+               2,
+               None,
+               'cnn-pytorch-code-example'),
+              ('Variational Autoencoders (VAE) Overview',
+               2,
+               None,
+               'variational-autoencoders-vae-overview'),
+              ('VAE for Spin Configurations',
+               2,
+               None,
+               'vae-for-spin-configurations'),
+              ('VAE Architecture Details', 2, None, 'vae-architecture-details'),
+              ('VAE Results on Ising Model',
+               2,
+               None,
+               'vae-results-on-ising-model'),
+              ('VAE: Generation and Interpretation',
+               2,
+               None,
+               'vae-generation-and-interpretation'),
+              ('VAE (PyTorch) Code Example',
+               2,
+               None,
+               'vae-pytorch-code-example'),
+              ('Supervised vs Unsupervised Methods',
+               2,
+               None,
+               'supervised-vs-unsupervised-methods'),
+              ('Method Interpretability and Features',
+               2,
+               None,
+               'method-interpretability-and-features'),
+              ('Performance and Use Cases',
+               2,
+               None,
+               'performance-and-use-cases'),
+              ('Summary of Methods', 2, None, 'summary-of-methods'),
+              ('Conclusions', 2, None, 'conclusions'),
+              ('References', 2, None, 'references')]}
+end of tocinfo -->
+
+<body>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  TeX: {
+     equationNumbers: {  autoNumber: "none"  },
+     extensions: ["AMSmath.js", "AMSsymbols.js", "autobold.js", "color.js"]
+  }
+});
+</script>
+<script type="text/javascript" async
+ src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<!-- Bootstrap navigation bar -->
+<div class="navbar navbar-default navbar-fixed-top">
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="ecturenotes-bs.html">Using Machine Learning to Classify Phase Transitions</a>
+  </div>
+  <div class="navbar-collapse collapse navbar-responsive-collapse">
+    <ul class="nav navbar-nav navbar-right">
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Contents <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs001.html#what-is-this-about" style="font-size: 80%;">What is this about?</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs002.html#ai-ml-and-some-statements-you-may-have-heard-and-what-do-they-mean" style="font-size: 80%;">AI/ML and some statements you may have heard (and what do they mean?)</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs003.html#types-of-machine-learning" style="font-size: 80%;">Types of machine learning</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs004.html#main-categories" style="font-size: 80%;">Main categories</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs005.html#the-plethora-of-machine-learning-algorithms-methods" style="font-size: 80%;">The plethora  of machine learning algorithms/methods</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs006.html#example-of-generative-modeling-taken-from-generative-deep-learning-by-david-foster-https-www-oreilly-com-library-view-generative-deep-learning-9781098134174-ch01-html" style="font-size: 80%;">Example of generative modeling, "taken from Generative Deep Learning by David Foster":"https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html"</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs007.html#example-of-discriminative-modeling-taken-from-generative-deeep-learning-by-david-foster-https-www-oreilly-com-library-view-generative-deep-learning-9781098134174-ch01-html" style="font-size: 80%;">Example of discriminative modeling, "taken from Generative Deeep Learning by David Foster":"https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html"</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs008.html#taxonomy-of-generative-deep-learning-taken-from-generative-deep-learning-by-david-foster-https-www-oreilly-com-library-view-generative-deep-learning-9781098134174-ch01-html" style="font-size: 80%;">Taxonomy of generative deep learning, "taken from Generative Deep Learning by David Foster":"https://www.oreilly.com/library/view/generative-deep-learning/9781098134174/ch01.html"</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs009.html#good-books-with-hands-on-material-and-codes" style="font-size: 80%;">Good books with hands-on material and codes</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs010.html#what-are-the-basic-machine-learning-ingredients" style="font-size: 80%;">What are the basic Machine Learning ingredients?</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs011.html#low-level-machine-learning-the-family-of-ordinary-least-squares-methods" style="font-size: 80%;">Low-level machine learning, the family of ordinary least squares methods</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs012.html#setting-up-the-equations" style="font-size: 80%;">Setting up the equations</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs013.html#the-objective-cost-loss-function" style="font-size: 80%;">The objective/cost/loss function</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs014.html#training-solution" style="font-size: 80%;">Training solution</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs015.html#selected-references" style="font-size: 80%;">Selected references</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs016.html#machine-learning-a-simple-perspective-on-the-interface-between-ml-and-physics" style="font-size: 80%;">Machine learning. A simple perspective on the interface between ML and Physics</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs017.html#ml-in-nuclear-physics-or-any-field-in-physics" style="font-size: 80%;">ML in Nuclear  Physics (or any field in physics)</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs018.html#phase-transitions-and-critical-phenomena" style="font-size: 80%;">Phase Transitions and Critical Phenomena</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs019.html#phase-transitions-definitions" style="font-size: 80%;">Phase Transitions: Definitions</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs020.html#order-parameter-and-symmetry-breaking" style="font-size: 80%;">Order Parameter and Symmetry Breaking</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs021.html#critical-phenomena-and-scaling" style="font-size: 80%;">Critical Phenomena and Scaling</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs022.html#2d-ising-model-definition" style="font-size: 80%;">2D Ising Model: Definition</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs023.html#2d-ising-model-critical-temperature" style="font-size: 80%;">2D Ising Model: Critical Temperature</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs024.html#q-state-potts-model-definition" style="font-size: 80%;">q-State Potts Model: Definition</a></li>
+     <!-- navigation toc: --> <li><a href="#2d-potts-model-phase-behavior" style="font-size: 80%;">2D Potts Model: Phase Behavior</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs026.html#monte-carlo-sampling-of-spin-models" style="font-size: 80%;">Monte Carlo Sampling of Spin Models</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs027.html#metropolis-algorithm" style="font-size: 80%;">Metropolis Algorithm</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs028.html#metropolis-algorithm-pseudo-code" style="font-size: 80%;">Metropolis Algorithm (Pseudo-code)</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs029.html#monte-carlo-data-for-ml" style="font-size: 80%;">Monte Carlo Data for ML</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs030.html#principal-component-analysis-pca-basics" style="font-size: 80%;">Principal Component Analysis (PCA) Basics</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs031.html#pca-for-phase-identification" style="font-size: 80%;">PCA for Phase Identification</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs032.html#pca-workflow-for-spin-data" style="font-size: 80%;">PCA Workflow for Spin Data</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs033.html#pca-example-ising-model" style="font-size: 80%;">PCA Example: Ising Model</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs034.html#pca-limitations" style="font-size: 80%;">PCA Limitations</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs035.html#pca-with-pytorch-example-code" style="font-size: 80%;">PCA with PyTorch (Example Code)</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs036.html#convolutional-neural-networks-cnns" style="font-size: 80%;">Convolutional Neural Networks (CNNs)</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs037.html#cnn-for-phase-classification" style="font-size: 80%;">CNN for Phase Classification</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs038.html#example-cnn-architecture" style="font-size: 80%;">Example CNN Architecture</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs039.html#cnn-training-and-results" style="font-size: 80%;">CNN: Training and Results</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs040.html#cnn-interpretability" style="font-size: 80%;">CNN Interpretability</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs041.html#cnn-pytorch-code-example" style="font-size: 80%;">CNN (PyTorch) Code Example</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs042.html#variational-autoencoders-vae-overview" style="font-size: 80%;">Variational Autoencoders (VAE) Overview</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs043.html#vae-for-spin-configurations" style="font-size: 80%;">VAE for Spin Configurations</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs044.html#vae-architecture-details" style="font-size: 80%;">VAE Architecture Details</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs045.html#vae-results-on-ising-model" style="font-size: 80%;">VAE Results on Ising Model</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs046.html#vae-generation-and-interpretation" style="font-size: 80%;">VAE: Generation and Interpretation</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs047.html#vae-pytorch-code-example" style="font-size: 80%;">VAE (PyTorch) Code Example</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs048.html#supervised-vs-unsupervised-methods" style="font-size: 80%;">Supervised vs Unsupervised Methods</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs049.html#method-interpretability-and-features" style="font-size: 80%;">Method Interpretability and Features</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs050.html#performance-and-use-cases" style="font-size: 80%;">Performance and Use Cases</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs051.html#summary-of-methods" style="font-size: 80%;">Summary of Methods</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs052.html#conclusions" style="font-size: 80%;">Conclusions</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs053.html#references" style="font-size: 80%;">References</a></li>
+
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
+</div> <!-- end of navigation bar -->
+<div class="container">
+<p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> <!-- add vertical space -->
+<a name="part0025"></a>
+<!-- !split -->
+<h2 id="2d-potts-model-phase-behavior" class="anchor">2D Potts Model: Phase Behavior </h2>
+<ul>
+<li> In 2D, the ferromagnetic Potts model has a phase transition for all \( q\ge1 \)</li> 
+<li> Exact critical point:</li>
+</ul>
+$$
+       \frac{J}{k_B T_c} = \ln\!\bigl(1+\sqrt{q}\bigr).
+     $$
+
+<ul>
+<li> The nature of the transition depends on \( q \)</li> 
+<ul>
+  <li> \( 1 \le q \le 4 \): continuous (second-order) transition.</li>
+  <li> \( q > 4 \): discontinuous (first-order) transition (latent heat appears).</li>
+</ul>
+<li> Example: \( q=3,4 \) have continuous transitions; \( q=5 \) and higher show first-order behavior.</li>
+</ul>
+<p>
+<!-- navigation buttons at the bottom of the page -->
+<ul class="pagination">
+<li><a href="._lecturenotes-bs024.html">&laquo;</a></li>
+  <li><a href="._lecturenotes-bs000.html">1</a></li>
+  <li><a href="">...</a></li>
+  <li><a href="._lecturenotes-bs017.html">18</a></li>
+  <li><a href="._lecturenotes-bs018.html">19</a></li>
+  <li><a href="._lecturenotes-bs019.html">20</a></li>
+  <li><a href="._lecturenotes-bs020.html">21</a></li>
+  <li><a href="._lecturenotes-bs021.html">22</a></li>
+  <li><a href="._lecturenotes-bs022.html">23</a></li>
+  <li><a href="._lecturenotes-bs023.html">24</a></li>
+  <li><a href="._lecturenotes-bs024.html">25</a></li>
+  <li class="active"><a href="._lecturenotes-bs025.html">26</a></li>
+  <li><a href="._lecturenotes-bs026.html">27</a></li>
+  <li><a href="._lecturenotes-bs027.html">28</a></li>
+  <li><a href="._lecturenotes-bs028.html">29</a></li>
+  <li><a href="._lecturenotes-bs029.html">30</a></li>
+  <li><a href="._lecturenotes-bs030.html">31</a></li>
+  <li><a href="._lecturenotes-bs031.html">32</a></li>
+  <li><a href="._lecturenotes-bs032.html">33</a></li>
+  <li><a href="._lecturenotes-bs033.html">34</a></li>
+  <li><a href="._lecturenotes-bs034.html">35</a></li>
+  <li><a href="">...</a></li>
+  <li><a href="._lecturenotes-bs053.html">54</a></li>
+  <li><a href="._lecturenotes-bs026.html">&raquo;</a></li>
+</ul>
+<!-- ------------------- end of main content --------------- -->
+</div>  <!-- end container -->
+<!-- include javascript, jQuery *first* -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+<!-- Bootstrap footer
+<footer>
+<a href="https://..."><img width="250" align=right src="https://..."></a>
+</footer>
+-->
+</body>
+</html>
+

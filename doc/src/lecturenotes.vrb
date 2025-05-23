@@ -1,0 +1,15 @@
+\frametitle{References}
+
+\begin{enumerate}
+\item Carrasquilla, J. \& Melko, R. G. (2017). Machine learning phases of matter. \emph{Nature Physics}, 13, 431–434
+
+\item Hu, W. \textit{et al.} (2017). Discovering phases, phase transitions through unsupervised ML. \emph{Phys. Rev. E} 95, 062122
+
+\item Fukushima, K. \& Sakai, K. (2021). Can a CNN trained on Ising detect Potts? \emph{Prog. Theor. Exp. Phys.} 2021, 061A01
+
+\item Walker, N. \textit{et al.} (2020). 2D Ising model crossover via VAE. \emph{Sci. Rep.} 10, 13047
+
+\item Add refs
+\end{enumerate}
+
+\noindent
