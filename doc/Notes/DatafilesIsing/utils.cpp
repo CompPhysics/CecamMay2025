@@ -1,4 +1,4 @@
-#include "./include/utils.hpp"
+#include "utils.hpp"
 
 std::mt19937 gen(time(NULL));
 double kb = 1.;
