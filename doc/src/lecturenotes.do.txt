@@ -19,7 +19,7 @@ o Comparisons: Interpretability and performance trade-offs between PCA, CNN, and
 !split
 ===== Where do I find the material? =====
 
-All the material here can be found in the PDF files, codes and jupyter-notebooks at the above _doc_ folder, see the _pub_ subfolder, link to be added  
+All the material here can be found in the PDF files, codes and jupyter-notebooks at the above _doc_ folder, see the _pub_ subfolder, see URL:"https://github.com/CompPhysics/CecamMay2025"
 
 
 !split
