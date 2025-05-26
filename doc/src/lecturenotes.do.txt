@@ -265,7 +265,7 @@ o _Critical Point_: At the critical temperature (or pressure, etc.), the order p
 
 o _First-Order vs Second-Order_: In a first-order transition, the order parameter changes discontinuously at the transition (often with latent heat), whereas in a second-order (continuous) transition, the order parameter goes to zero continuously at $T_c$, accompanied by diverging susceptibility and correlation length. For example, the liquid–gas transition (at sub-critical pressures) is first-order, while the ferromagnetic transition in the 2D Ising model is second-order (continuous).
 o _Example, Potts Model Transitions_: The q-state Potts model generalizes Ising (which is q=2). In 2D, the Potts model undergoes a continuous transition for $q \le  4$ and a discontinuous (first-order) transition for $q>4$ . This highlights how the nature of the phase transition can change with system parameters.
-o _Critical Phenomena_: Near second-order transitions, critical phenomena include power-law divergences (e.g. specific heat, susceptibility), critical opalescence (fluctuations at all scales), and universality (different systems share the same critical exponents if they have the same symmetry and dimensionality). These concepts set the stage for identifying phase transitions through data features (e.g. large fluctuations near $T_c# might be detectable by learning algorithms).
+o _Critical Phenomena_: Near second-order transitions, critical phenomena include power-law divergences (e.g. specific heat, susceptibility), critical opalescence (fluctuations at all scales), and universality (different systems share the same critical exponents if they have the same symmetry and dimensionality). These concepts set the stage for identifying phase transitions through data features (e.g. large fluctuations near $T_c$ might be detectable by learning algorithms).
 
 
 
@@ -674,35 +674,6 @@ o Fukushima, K. \& Sakai, K. (2021). Can a CNN trained on Ising detect Potts? \e
 o Walker, N. \textit{et al.} (2020). 2D Ising model crossover via VAE. \emph{Sci. Rep.} 10, 13047
 o Add refs
 
-
-
-
-
-
-
-!split
-===== 2D Ising Model (Ferromagnet) =====
-
-
-
-
-
-Figure: Two-dimensional Ising model with spins up (pink arrows) and down (blue arrows) on a square lattice. Each spin can be $s_i = \pm 1$ and interacts with its nearest neighbors; aligned neighbors (same color) contribute a lower energy ($-J$ per bond) while anti-aligned neighbors contribute higher energy ($+J$). The Hamiltonian (with no external field) is $H = -J \sum_{\langle i,j\rangle} s_i s_j$, favoring parallel alignment of spins. The competition between interaction energy and thermal agitation leads to a ferromagnetic phase at low temperatures (most spins align, yielding non-zero net magnetization) and a paramagnetic phase at high temperatures (spins are disordered, zero net magnetization). The 2D square-lattice Ising model is the simplest model that exhibits a phase transition at a finite critical temperature T_c (approximately $T_c \approx 2.269,J/k_B$ for the infinite lattice). Below $T_c$ the system spontaneously magnetizes (symmetry breaking), while above $T_c$ it remains disordered.
-
-
-
-
-
-!split
-===== q-State Potts Model =====
-
-
-
-
-
-Definition: The q-state Potts model is a generalization of the Ising model where each spin can take $q$ discrete values (e.g. $q$ “colors” instead of just up/down). The Hamiltonian for the ferromagnetic Potts model can be written $H = -J \sum_{\langle i,j\rangle} \delta_{\sigma_i,\sigma_j}$, where $\sigma_i \in {1,\dots,q}$ and $\delta$ is the Kronecker delta (neighbor interaction is $-J$ if spins are in the same state). For $q=2$, this reduces to the Ising model.
-Phases: Like the Ising case, at low temperature a Potts model magnetically orders (most spins in the same state), and at high temperature it is disordered (spins randomly distributed among the $q$ states). The nature of the transition, however, depends on $q$. In 2D, all $q\ge 1$ have a phase transition at some critical temperature given by $k_B T_c/J = 1/\ln(1+\sqrt{q},)$ . For $q \le 4$ the transition is continuous (second-order), in the same universality class as the Ising model for $q=2$, whereas for $q > 4$ the transition becomes first-order (discontinuous jump in order parameter) .
-Significance: The $q$-state Potts model exemplifies how increasing internal symmetry (more spin states) can change transition order. It provides a wider test-bed for machine learning methods: e.g. can an algorithm trained on one type of transition detect another? We will focus primarily on the Ising case (as $q=2$) for data generation and learning, with the understanding that methods can be extended to Potts models and beyond.
 
 
 

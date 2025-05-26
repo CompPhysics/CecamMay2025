@@ -141,6 +141,14 @@ div.toc p,a {
                2,
                None,
                'order-parameter-and-symmetry-breaking'),
+              ('Phase Transitions: Overview',
+               2,
+               None,
+               'phase-transitions-overview'),
+              ('Phase Transitions: First vs Second Order',
+               2,
+               None,
+               'phase-transitions-first-vs-second-order'),
               ('Critical Phenomena and Scaling',
                2,
                None,
@@ -302,7 +310,7 @@ MathJax.Hub.Config({
 <!-- !split --><br><br><br><br><br><br><br><br><br><br>
 <h2 id="where-do-i-find-the-material">Where do I find the material? </h2>
 
-<p>All the material here can be found in the PDF files, codes and jupyter-notebooks at the above <b>doc</b> folder, see the <b>pub</b> subfolder, link to be added  </p>
+<p>All the material here can be found in the PDF files, codes and jupyter-notebooks at the above <b>doc</b> folder, see the <b>pub</b> subfolder, see <a href="https://github.com/CompPhysics/CecamMay2025" target="_blank"><tt>https://github.com/CompPhysics/CecamMay2025</tt></a></p>
 
 <!-- !split --><br><br><br><br><br><br><br><br><br><br>
 <h2 id="ai-ml-and-some-statements-you-may-have-heard-and-what-do-they-mean">AI/ML and some statements you may have heard (and what do they mean?)  </h2>
@@ -541,6 +549,22 @@ $$
 <li> The order parameter (e.g.\ magnetization \( M = \frac{1}{N}\sum_i s_i \)) changes behavior at \( T_c \).</li>
 <li> In ferromagnets: \( M=0 \) for \( T>T_c \) (symmetric paramagnet), \( M\neq 0 \) for \( T < T_c \) (broken symmetry).</li>
 <li> Example: in 2D Ising model, two symmetric ordered states (up/down) below \( T_c \).</li>
+</ol>
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="phase-transitions-overview">Phase Transitions: Overview </h2>
+
+<ol>
+<li> <b>Definition</b>: A phase transition is characterized by an abrupt, non-analytic change in a macroscopic property of a system as some external parameter (e.g. temperature) is varied . In simpler terms, the system&#8217;s state or phase changes dramatically at a critical point.</li>
+<li> <b>Order Parameter</b>: Associated with each phase transition is an order parameter &#8211; a quantity that is zero in one phase and non-zero in the other. For example, magnetization plays the role of an order parameter in magnetic systems, distinguishing ordered (magnetized) from disordered (unmagnetized) phases.</li>
+<li> <b>Critical Point</b>: At the critical temperature (or pressure, etc.), the order parameter changes (continuous or discontinuous) and the system exhibits critical phenomena: large fluctuations, divergence of correlation length, and the onset of scale invariance. Critical points of second-order transitions feature continuous change of the order parameter with characteristic critical exponents and universal behavior across different systems.</li>
+</ol>
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="phase-transitions-first-vs-second-order">Phase Transitions: First vs Second Order </h2>
+
+<ol>
+<li> <b>First-Order vs Second-Order</b>: In a first-order transition, the order parameter changes discontinuously at the transition (often with latent heat), whereas in a second-order (continuous) transition, the order parameter goes to zero continuously at \( T_c \), accompanied by diverging susceptibility and correlation length. For example, the liquid&#8211;gas transition (at sub-critical pressures) is first-order, while the ferromagnetic transition in the 2D Ising model is second-order (continuous).</li>
+<li> <b>Example, Potts Model Transitions</b>: The q-state Potts model generalizes Ising (which is q=2). In 2D, the Potts model undergoes a continuous transition for \( q \le  4 \) and a discontinuous (first-order) transition for \( q>4 \) . This highlights how the nature of the phase transition can change with system parameters.</li>
+<li> <b>Critical Phenomena</b>: Near second-order transitions, critical phenomena include power-law divergences (e.g. specific heat, susceptibility), critical opalescence (fluctuations at all scales), and universality (different systems share the same critical exponents if they have the same symmetry and dimensionality). These concepts set the stage for identifying phase transitions through data features (e.g. large fluctuations near \( T_c \) might be detectable by learning algorithms).</li>
 </ol>
 <!-- !split --><br><br><br><br><br><br><br><br><br><br>
 <h2 id="critical-phenomena-and-scaling">Critical Phenomena and Scaling </h2>

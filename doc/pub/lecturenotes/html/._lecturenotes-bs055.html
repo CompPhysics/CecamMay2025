@@ -299,7 +299,7 @@ MathJax.Hub.Config({
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs039.html#convolutional-neural-networks-cnns" style="font-size: 80%;">Convolutional Neural Networks (CNNs)</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs040.html#cnn-for-phase-classification" style="font-size: 80%;">CNN for Phase Classification</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs041.html#example-cnn-architecture" style="font-size: 80%;">Example CNN Architecture</a></li>
-     <!-- navigation toc: --> <li><a href="#cnn-training-and-results" style="font-size: 80%;">CNN: Training and Results</a></li>
+     <!-- navigation toc: --> <li><a href="._lecturenotes-bs042.html#cnn-training-and-results" style="font-size: 80%;">CNN: Training and Results</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs043.html#cnn-interpretability" style="font-size: 80%;">CNN Interpretability</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs044.html#cnn-pytorch-code-example" style="font-size: 80%;">CNN (PyTorch) Code Example</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs045.html#variational-autoencoders-vae-overview" style="font-size: 80%;">Variational Autoencoders (VAE) Overview</a></li>
@@ -312,7 +312,7 @@ MathJax.Hub.Config({
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs052.html#method-interpretability-and-features" style="font-size: 80%;">Method Interpretability and Features</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs053.html#performance-and-use-cases" style="font-size: 80%;">Performance and Use Cases</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs054.html#summary-of-methods" style="font-size: 80%;">Summary of Methods</a></li>
-     <!-- navigation toc: --> <li><a href="._lecturenotes-bs055.html#conclusions" style="font-size: 80%;">Conclusions</a></li>
+     <!-- navigation toc: --> <li><a href="#conclusions" style="font-size: 80%;">Conclusions</a></li>
      <!-- navigation toc: --> <li><a href="._lecturenotes-bs056.html#references" style="font-size: 80%;">References</a></li>
 
         </ul>
@@ -323,43 +323,34 @@ MathJax.Hub.Config({
 </div> <!-- end of navigation bar -->
 <div class="container">
 <p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p> <!-- add vertical space -->
-<a name="part0042"></a>
+<a name="part0055"></a>
 <!-- !split -->
-<h2 id="cnn-training-and-results" class="anchor">CNN: Training and Results </h2>
+<h2 id="conclusions" class="anchor">Conclusions </h2>
 <ol>
-<li> Train on many labeled samples (e.g.\ temperatures \( T \) and whether \( T < T_c \) or \( T>T_c \)).</li>
-<li> The network learns features such as magnetization domains, energy patterns, etc.</li>
-<li> CNN accuracy can be very high (often $\sim$100\% on clean data) for distinguishing phases.</li>
-<li> Fukushima and Sakai (2021): a CNN trained on 2D Ising can detect transition in \( q \)-state Potts</li> 
-<li> CNN behavior: at high \( T \) it effectively uses average energy; at low \( T \) it correlates with magnetization</li> 
+<li> Machine learning provides powerful tools for studying phase transitions in statistical models.</li>
+<li> <em>Unsupervised</em> methods (PCA, VAE) can discover phase structure without labels</li> 
+<li> <em>Supervised</em> methods (CNNs) achieve high classification performance given labeled data</li> 
+<li> Interpretability: PCA/VAE offer more insight into physics (latent/PC represent order parameters), while CNNs focus on prediction accuracy.</li>
+<li> Choice of method depends on the problem: data availability, need for generative modeling, and interpretability.</li>
+<li> Future directions: deeper architectures (e.g.\ ResNets), unsupervised generative flows, transfer learning across models, real experimental data.</li>
 </ol>
 <p>
 <!-- navigation buttons at the bottom of the page -->
 <ul class="pagination">
-<li><a href="._lecturenotes-bs041.html">&laquo;</a></li>
+<li><a href="._lecturenotes-bs054.html">&laquo;</a></li>
   <li><a href="._lecturenotes-bs000.html">1</a></li>
   <li><a href="">...</a></li>
-  <li><a href="._lecturenotes-bs034.html">35</a></li>
-  <li><a href="._lecturenotes-bs035.html">36</a></li>
-  <li><a href="._lecturenotes-bs036.html">37</a></li>
-  <li><a href="._lecturenotes-bs037.html">38</a></li>
-  <li><a href="._lecturenotes-bs038.html">39</a></li>
-  <li><a href="._lecturenotes-bs039.html">40</a></li>
-  <li><a href="._lecturenotes-bs040.html">41</a></li>
-  <li><a href="._lecturenotes-bs041.html">42</a></li>
-  <li class="active"><a href="._lecturenotes-bs042.html">43</a></li>
-  <li><a href="._lecturenotes-bs043.html">44</a></li>
-  <li><a href="._lecturenotes-bs044.html">45</a></li>
-  <li><a href="._lecturenotes-bs045.html">46</a></li>
-  <li><a href="._lecturenotes-bs046.html">47</a></li>
   <li><a href="._lecturenotes-bs047.html">48</a></li>
   <li><a href="._lecturenotes-bs048.html">49</a></li>
   <li><a href="._lecturenotes-bs049.html">50</a></li>
   <li><a href="._lecturenotes-bs050.html">51</a></li>
   <li><a href="._lecturenotes-bs051.html">52</a></li>
-  <li><a href="">...</a></li>
+  <li><a href="._lecturenotes-bs052.html">53</a></li>
+  <li><a href="._lecturenotes-bs053.html">54</a></li>
+  <li><a href="._lecturenotes-bs054.html">55</a></li>
+  <li class="active"><a href="._lecturenotes-bs055.html">56</a></li>
   <li><a href="._lecturenotes-bs056.html">57</a></li>
-  <li><a href="._lecturenotes-bs043.html">&raquo;</a></li>
+  <li><a href="._lecturenotes-bs056.html">&raquo;</a></li>
 </ul>
 <!-- ------------------- end of main content --------------- -->
 </div>  <!-- end container -->
