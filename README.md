@@ -110,9 +110,11 @@ Summary: VAEs, like PCA, perform unsupervised feature extraction, but with non-l
 
 The Ising model has been simulated using the Metropolis algorithm as sampling rule and  Markov Chain Monte Carlo (MCMC) procedure to sample configurations. 
 
-All program files are in the folder https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles.
+All program files are in the folder https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles. The material for the CNN analysis was developed by Daniel Haas Beccatini. 
 
-If you are not familiar with CNNs, feel free to visit and study my lecture notes at https://github.com/CompPhysics/AdvancedMachineLearning and go to the material for week 4 at https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week4/ipynb/week4.ipynb and week 5 at https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week5/ipynb/week5.ipynb
+If you are not familiar with CNNs, feel free to visit and study my lecture notes at https://github.com/CompPhysics/AdvancedMachineLearning and go to the material for week 4 at https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week4/ipynb/week4.ipynb and week 5 at https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week5/ipynb/week5.ipynb.
+
+If you find a discussion of phase transitions too difficult, we would recommend simply getting acquainted with CNNs and NNs and running image classification examples using for example the MNIST data set.
 
 
 The  results here have been obtained by  implementing the 50x50 2D lattice version of the Ising model and
