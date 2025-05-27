@@ -669,7 +669,7 @@ o Future directions: deeper architectures (e.g.\ ResNets), unsupervised generati
 !split
 ===== References =====
 o Carrasquilla, J. and Melko, R. G., *Machine learning phases of matter*, Nature Physics {\bf 13}, 431–434 (2017), see URL:"https://www.nature.com/articles/nphys4035"
-o Hu, W. \textit{et al.}, *Discovering phases, phase transitions through unsupervised ML*, Phys. Rev. E {\bf 95}, 062122 (2017), see UR:"https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.062122" 
+o Hu, W. \textit{et al.}, *Discovering phases, phase transitions through unsupervised ML*, Phys. Rev. E {\bf 95}, 062122 (2017), see URL:"https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.062122" 
 o Fukushima, K. and Sakai, K., *Can a CNN trained on Ising detect Potts?* Prog. Theor. Exp. Phys. 061A01 (2021), see URL:"https://academic.oup.com/ptep/article/2021/6/061A01/6270799?login=false" 
 o Walker, N. \textit{et al.}, *2D Ising model crossover via VAE*, Sci. Rep. {\bf 10}, 13047 (2020), see URL:"https://www.nature.com/articles/s41598-020-69848-5"
 o Bachtis, D. \textit{et al.}, *Mapping distinct phase transitions to a neural network*, Phys. Rev. E {\bf 102}, 053306 (2020), see URL:"https://journals.aps.org/pre/abstract/10.1103/PhysRevE.102.053306"
