@@ -190,7 +190,19 @@ Understanding possible output parameters:
 
 
 ##  Some references
-- Wang, L. (2016). Discovering phase transitions with unsupervised learning. Phys. Rev. B.
-- Carrasquilla, J., and Melko, R. (2017). Machine learning phases of matter. Nature Physics.
-- S. (2017). Unsupervised learning of phase transitions: From PCA to VAE. Phys. Rev. E.
+- Carrasquilla, J. and Melko, R. G., *Machine learning phases of matter*, Nature Physics 13, 431–434 (2017), see https://www.nature.com/articles/nphys4035
+- Hu, W. et al., *Discovering phases, phase transitions through unsupervised ML*, Phys. Rev. E 95, 062122 (2017), see https://journals.aps.org/pre/abstract/10.1103/PhysRevE.95.062122
+- Fukushima, K. and Sakai, K., *Can a CNN trained on Ising detect Potts?* Prog. Theor. Exp. Phys. 061A01 (2021), see https://academic.oup.com/ptep/article/2021/6/061A01/6270799?login=false 
+- Walker, N. et al., *2D Ising model crossover via VAE*, Sci. Rep. 10, 13047 (2020), see https://www.nature.com/articles/s41598-020-69848-5
+- Bachtis, D. et al., *Mapping distinct phase transitions to a neural network*, Phys. Rev. E 102, 053306 (2020), see https://journals.aps.org/pre/abstract/10.1103/PhysRevE.102.053306
+
+
+
+
+
+
+
+
+
+
 
