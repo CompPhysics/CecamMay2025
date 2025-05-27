@@ -1,20 +1,4 @@
-Works with $q$-state Potts spins ($s_i \in {0,1,\dots,q{-}1}$)
-Uses a 2D convolutional encoder/decoder
-Outputs logits or softmax over $q$ classes
-Can reconstruct full lattice images
-
-
-
-
-
-
-
-
-
-1. 2D VAE for Potts Model
-
-
-
+# 2D VAE for Potts Model
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -98,15 +82,7 @@ for epoch in range(15):
         total_loss += loss.item()
     print(f"Epoch {epoch+1}, Loss = {total_loss:.1f}")
 
-
-
-
-
-
-
-2. Visualizing Reconstructions
-
-
+# Visualizing Reconstructions
 
 vae.eval()
 with torch.no_grad():
@@ -126,28 +102,3 @@ plt.tight_layout()
 plt.show()
 
 
-
-
-
-
-
-Notes:
-
-
-
-
-
-Assumes L=28 (if not, adjust decoder shapes).
-You can use temperature-dependent coloring in the latent space like before.
-The decoder produces logits, which allows clean multiclass cross-entropy.
-
-
-
-
-Let me know if you’d like:
-
-
-
-Conditional VAE (e.g. conditioned on temperature)
-Animations of reconstructions over temperature
-Export to interactive latent space plots
