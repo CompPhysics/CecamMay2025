@@ -255,6 +255,10 @@ div.toc p,a {
                2,
                None,
                'metropolis-algorithm-pseudo-code'),
+              ('Simple code to generate images',
+               2,
+               None,
+               'simple-code-to-generate-images'),
               ('Monte Carlo Data for ML', 2, None, 'monte-carlo-data-for-ml'),
               ('Principal Component Analysis (PCA) Basics',
                2,
@@ -270,10 +274,6 @@ div.toc p,a {
                'pca-workflow-for-spin-data'),
               ('PCA Example: Ising Model', 2, None, 'pca-example-ising-model'),
               ('PCA Limitations', 2, None, 'pca-limitations'),
-              ('PCA with PyTorch (Example Code)',
-               2,
-               None,
-               'pca-with-pytorch-example-code'),
               ('Convolutional Neural Networks (CNNs)',
                2,
                None,
@@ -292,6 +292,10 @@ div.toc p,a {
                2,
                None,
                'cnn-pytorch-code-example'),
+              ('Code to read in Ising data',
+               2,
+               None,
+               'code-to-read-in-ising-data'),
               ('Variational Autoencoders (VAE) Overview',
                2,
                None,
@@ -763,6 +767,80 @@ $$
 
 
 <!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="simple-code-to-generate-images">Simple code to generate images </h2>
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class="highlight" style="background: #f8f8f8">
+  <pre style="line-height: 125%;"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">numpy</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">np</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">matplotlib.pyplot</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">plt</span>
+
+<span style="color: #408080; font-style: italic"># Parameters</span>
+L <span style="color: #666666">=</span> <span style="color: #666666">50</span>                                 <span style="color: #408080; font-style: italic"># linear lattice size</span>
+temperatures <span style="color: #666666">=</span> np<span style="color: #666666">.</span>arange(<span style="color: #666666">2.0</span>, <span style="color: #666666">2.51</span>, <span style="color: #666666">0.1</span>)  <span style="color: #408080; font-style: italic"># T = 2.0, 2.1, ..., 2.5</span>
+n_steps <span style="color: #666666">=</span> <span style="color: #666666">100000</span>                       <span style="color: #408080; font-style: italic"># Monte Carlo steps per temperature</span>
+
+<span style="color: #008000; font-weight: bold">for</span> T <span style="color: #AA22FF; font-weight: bold">in</span> temperatures:
+    beta <span style="color: #666666">=</span> <span style="color: #666666">1.0</span> <span style="color: #666666">/</span> T
+    J <span style="color: #666666">=</span> <span style="color: #666666">1.0</span>   <span style="color: #408080; font-style: italic"># coupling strength</span>
+    <span style="color: #408080; font-style: italic"># Initialize spins randomly to +1 or -1</span>
+    spins <span style="color: #666666">=</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>choice([<span style="color: #666666">-1</span>, <span style="color: #666666">1</span>], size<span style="color: #666666">=</span>(L, L))
+    
+    <span style="color: #408080; font-style: italic"># Metropolis update loop</span>
+    <span style="color: #008000; font-weight: bold">for</span> step <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(n_steps):
+        <span style="color: #408080; font-style: italic"># Pick a random spin (i,j)</span>
+        i <span style="color: #666666">=</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>randint(<span style="color: #666666">0</span>, L)
+        j <span style="color: #666666">=</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>randint(<span style="color: #666666">0</span>, L)
+        <span style="color: #408080; font-style: italic"># Compute sum of the four neighbors (with periodic boundary conditions)</span>
+        total_neighbors <span style="color: #666666">=</span> (
+            spins[(i<span style="color: #666666">+1</span>) <span style="color: #666666">%</span> L, j] <span style="color: #666666">+</span> spins[(i<span style="color: #666666">-1</span>) <span style="color: #666666">%</span> L, j] <span style="color: #666666">+</span>
+            spins[i, (j<span style="color: #666666">+1</span>) <span style="color: #666666">%</span> L] <span style="color: #666666">+</span> spins[i, (j<span style="color: #666666">-1</span>) <span style="color: #666666">%</span> L]
+        )
+        <span style="color: #408080; font-style: italic"># Energy change for flipping this spin</span>
+        dE <span style="color: #666666">=</span> <span style="color: #666666">2</span> <span style="color: #666666">*</span> J <span style="color: #666666">*</span> spins[i, j] <span style="color: #666666">*</span> total_neighbors
+        <span style="color: #408080; font-style: italic"># Metropolis criterion: accept flip if dE &lt;= 0 or with prob. exp(-dE*beta)</span>
+        <span style="color: #008000; font-weight: bold">if</span> dE <span style="color: #666666">&lt;=</span> <span style="color: #666666">0</span> <span style="color: #AA22FF; font-weight: bold">or</span> np<span style="color: #666666">.</span>random<span style="color: #666666">.</span>rand() <span style="color: #666666">&lt;</span> np<span style="color: #666666">.</span>exp(<span style="color: #666666">-</span>beta <span style="color: #666666">*</span> dE):
+            spins[i, j] <span style="color: #666666">*=</span> <span style="color: #666666">-1</span>
+
+    <span style="color: #408080; font-style: italic"># Plot the final spin configuration</span>
+    plt<span style="color: #666666">.</span>figure(figsize<span style="color: #666666">=</span>(<span style="color: #666666">4</span>, <span style="color: #666666">4</span>))
+    <span style="color: #408080; font-style: italic"># Use a grayscale colormap: -1 will map to black, +1 to white (vmin/vmax)</span>
+    plt<span style="color: #666666">.</span>imshow(spins, cmap<span style="color: #666666">=</span><span style="color: #BA2121">&#39;gray&#39;</span>, vmin<span style="color: #666666">=-1</span>, vmax<span style="color: #666666">=1</span>)
+    plt<span style="color: #666666">.</span>title(<span style="color: #BA2121">f&#39;Ising Lattice (T = </span><span style="color: #BB6688; font-weight: bold">{</span>T<span style="color: #BB6688; font-weight: bold">:</span><span style="color: #BA2121">.1f</span><span style="color: #BB6688; font-weight: bold">}</span><span style="color: #BA2121">)&#39;</span>)
+    plt<span style="color: #666666">.</span>axis(<span style="color: #BA2121">&#39;off&#39;</span>)
+    plt<span style="color: #666666">.</span>savefig(<span style="color: #BA2121">f&#39;ising_T</span><span style="color: #BB6688; font-weight: bold">{</span>T<span style="color: #BB6688; font-weight: bold">:</span><span style="color: #BA2121">.1f</span><span style="color: #BB6688; font-weight: bold">}</span><span style="color: #BA2121">.png&#39;</span>, dpi<span style="color: #666666">=150</span>)
+    plt<span style="color: #666666">.</span>close()
+
+<span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;    </span>
+<span style="color: #BA2121; font-style: italic">Each saved image (e.g. ising_T2.0.png) visually depicts the spin</span>
+<span style="color: #BA2121; font-style: italic">arrangement at that temperature. The code is easy to extend: changing</span>
+<span style="color: #BA2121; font-style: italic">L, the temperatures list, or n_steps allows different lattice sizes or</span>
+<span style="color: #BA2121; font-style: italic">more/fewer Monte Carlo sweeps. As expected, low-T images become mostly</span>
+<span style="color: #BA2121; font-style: italic">uniform (a single color, since nearly all spins align), while high-T</span>
+<span style="color: #BA2121; font-style: italic">images appear random (resembling “TV static”) . Around the critical</span>
+<span style="color: #BA2121; font-style: italic">temperature (~2.27), one sees a mixture of black and white clusters</span>
+<span style="color: #BA2121; font-style: italic">with fractal boundaries (as in the figure above) .</span>
+<span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+</pre>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="output_subarea output_stream output_stdout output_text">          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
 <h2 id="monte-carlo-data-for-ml">Monte Carlo Data for ML </h2>
 <ol>
 <li> Generate many spin configurations across a range of temperatures \( T \).</li>
@@ -820,49 +898,6 @@ $$
 <li> Sensitive to scaling: data should be normalized appropriately.</li>
 <li> Still useful as a first-pass: identifies the most significant variations</li> 
 </ol>
-<!-- !split --><br><br><br><br><br><br><br><br><br><br>
-<h2 id="pca-with-pytorch-example-code">PCA with PyTorch (Example Code) </h2>
-
-<!-- code=python (!bc pycod) typeset with pygments style "default" -->
-<div class="cell border-box-sizing code_cell rendered">
-  <div class="input">
-    <div class="inner_cell">
-      <div class="input_area">
-        <div class="highlight" style="background: #f8f8f8">
-  <pre style="line-height: 125%;"><span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">torch</span>
-
-<span style="color: #408080; font-style: italic"># X: tensor of shape (N, L*L) containing spin configurations as floats (e.g. +1/-1)</span>
-<span style="color: #408080; font-style: italic"># Center the data</span>
-X <span style="color: #666666">=</span> X <span style="color: #666666">-</span> X<span style="color: #666666">.</span>mean(dim<span style="color: #666666">=0</span>, keepdim<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>)
-
-<span style="color: #408080; font-style: italic"># Compute covariance (or use torch.pca_lowrank)</span>
-cov <span style="color: #666666">=</span> torch<span style="color: #666666">.</span>mm(X<span style="color: #666666">.</span>t(), X) <span style="color: #666666">/</span> (X<span style="color: #666666">.</span>size(<span style="color: #666666">0</span>)<span style="color: #666666">-1</span>)
-
-<span style="color: #408080; font-style: italic"># Eigen-decomposition (SVD) of covariance</span>
-U, S, V <span style="color: #666666">=</span> torch<span style="color: #666666">.</span>svd(cov)
-
-<span style="color: #408080; font-style: italic"># Select first k principal components</span>
-k <span style="color: #666666">=</span> <span style="color: #666666">2</span>
-PCs <span style="color: #666666">=</span> U[:, :k]  <span style="color: #408080; font-style: italic"># shape (L*L, k)</span>
-
-<span style="color: #408080; font-style: italic"># Project data onto principal components</span>
-X_reduced <span style="color: #666666">=</span> torch<span style="color: #666666">.</span>mm(X, PCs)  <span style="color: #408080; font-style: italic"># shape (N, k)</span>
-</pre>
-</div>
-      </div>
-    </div>
-  </div>
-  <div class="output_wrapper">
-    <div class="output">
-      <div class="output_area">
-        <div class="output_subarea output_stream output_stdout output_text">          
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
 <!-- !split --><br><br><br><br><br><br><br><br><br><br>
 <h2 id="convolutional-neural-networks-cnns">Convolutional Neural Networks (CNNs) </h2>
 
@@ -947,6 +982,147 @@ X_reduced <span style="color: #666666">=</span> torch<span style="color: #666666
 model <span style="color: #666666">=</span> PhaseCNN(L<span style="color: #666666">=32</span>)           <span style="color: #408080; font-style: italic"># for a 32x32 lattice</span>
 criterion <span style="color: #666666">=</span> nn<span style="color: #666666">.</span>CrossEntropyLoss()
 optimizer <span style="color: #666666">=</span> torch<span style="color: #666666">.</span>optim<span style="color: #666666">.</span>Adam(model<span style="color: #666666">.</span>parameters(), lr<span style="color: #666666">=1e-3</span>)
+</pre>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="output_subarea output_stream output_stdout output_text">          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- !split --><br><br><br><br><br><br><br><br><br><br>
+<h2 id="code-to-read-in-ising-data">Code to read in Ising data </h2>
+
+
+<!-- code=python (!bc pycod) typeset with pygments style "default" -->
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class="highlight" style="background: #f8f8f8">
+  <pre style="line-height: 125%;"><span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #BA2121; font-style: italic">Loads PNG spin images (ising_T2.0.png, …, ising_T2.5.png).</span>
+<span style="color: #BA2121; font-style: italic">Labels them as:</span>
+<span style="color: #BA2121; font-style: italic">0 if T &lt; 2.27 (below critical temperature)</span>
+<span style="color: #BA2121; font-style: italic">1 if T \geq 2.27 (above critical temperature)</span>
+
+<span style="color: #BA2121; font-style: italic">Defines a small CNN classifier.</span>
+<span style="color: #BA2121; font-style: italic">Trains and evaluates the classifier.</span>
+<span style="color: #BA2121; font-style: italic">&quot;&quot;&quot;</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">os</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">torch</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">torch.nn</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">nn</span>
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">torch.optim</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">optim</span>
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">torchvision</span> <span style="color: #008000; font-weight: bold">import</span> transforms
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">torch.utils.data</span> <span style="color: #008000; font-weight: bold">import</span> Dataset, DataLoader, random_split
+<span style="color: #008000; font-weight: bold">from</span> <span style="color: #0000FF; font-weight: bold">PIL</span> <span style="color: #008000; font-weight: bold">import</span> Image
+<span style="color: #008000; font-weight: bold">import</span> <span style="color: #0000FF; font-weight: bold">matplotlib.pyplot</span> <span style="color: #008000; font-weight: bold">as</span> <span style="color: #0000FF; font-weight: bold">plt</span>
+
+<span style="color: #408080; font-style: italic"># Directory where Ising model images are stored</span>
+image_dir <span style="color: #666666">=</span> <span style="color: #BA2121">&#39;./&#39;</span>  <span style="color: #408080; font-style: italic"># adjust path if needed</span>
+critical_temp <span style="color: #666666">=</span> <span style="color: #666666">2.27</span>
+
+<span style="color: #408080; font-style: italic"># Custom Dataset</span>
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">IsingDataset</span>(Dataset):
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__init__</span>(<span style="color: #008000">self</span>, root_dir, transform<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">None</span>):
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>root_dir <span style="color: #666666">=</span> root_dir
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>image_files <span style="color: #666666">=</span> <span style="color: #008000">sorted</span>([f <span style="color: #008000; font-weight: bold">for</span> f <span style="color: #AA22FF; font-weight: bold">in</span> os<span style="color: #666666">.</span>listdir(root_dir) <span style="color: #008000; font-weight: bold">if</span> f<span style="color: #666666">.</span>startswith(<span style="color: #BA2121">&quot;ising_T&quot;</span>) <span style="color: #AA22FF; font-weight: bold">and</span> f<span style="color: #666666">.</span>endswith(<span style="color: #BA2121">&quot;.png&quot;</span>)])
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>transform <span style="color: #666666">=</span> transform
+
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__len__</span>(<span style="color: #008000">self</span>):
+        <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">len</span>(<span style="color: #008000">self</span><span style="color: #666666">.</span>image_files)
+
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__getitem__</span>(<span style="color: #008000">self</span>, idx):
+        file <span style="color: #666666">=</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>image_files[idx]
+        T <span style="color: #666666">=</span> <span style="color: #008000">float</span>(file<span style="color: #666666">.</span>split(<span style="color: #BA2121">&quot;T&quot;</span>)[<span style="color: #666666">1</span>]<span style="color: #666666">.</span>replace(<span style="color: #BA2121">&quot;.png&quot;</span>, <span style="color: #BA2121">&quot;&quot;</span>))
+        label <span style="color: #666666">=</span> <span style="color: #666666">0</span> <span style="color: #008000; font-weight: bold">if</span> T <span style="color: #666666">&lt;</span> critical_temp <span style="color: #008000; font-weight: bold">else</span> <span style="color: #666666">1</span>
+
+        image <span style="color: #666666">=</span> Image<span style="color: #666666">.</span>open(os<span style="color: #666666">.</span>path<span style="color: #666666">.</span>join(<span style="color: #008000">self</span><span style="color: #666666">.</span>root_dir, file))<span style="color: #666666">.</span>convert(<span style="color: #BA2121">&quot;L&quot;</span>)  <span style="color: #408080; font-style: italic"># grayscale</span>
+
+        <span style="color: #008000; font-weight: bold">if</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>transform:
+            image <span style="color: #666666">=</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>transform(image)
+
+        <span style="color: #008000; font-weight: bold">return</span> image, label
+
+<span style="color: #408080; font-style: italic"># Transforms</span>
+transform <span style="color: #666666">=</span> transforms<span style="color: #666666">.</span>Compose([
+    transforms<span style="color: #666666">.</span>Resize((<span style="color: #666666">50</span>, <span style="color: #666666">50</span>)),
+    transforms<span style="color: #666666">.</span>ToTensor(),  <span style="color: #408080; font-style: italic"># shape (1, H, W), values in [0,1]</span>
+])
+
+<span style="color: #408080; font-style: italic"># Dataset and Dataloader</span>
+dataset <span style="color: #666666">=</span> IsingDataset(image_dir, transform<span style="color: #666666">=</span>transform)
+train_size <span style="color: #666666">=</span> <span style="color: #008000">int</span>(<span style="color: #666666">0.8</span> <span style="color: #666666">*</span> <span style="color: #008000">len</span>(dataset))
+test_size <span style="color: #666666">=</span> <span style="color: #008000">len</span>(dataset) <span style="color: #666666">-</span> train_size
+train_dataset, test_dataset <span style="color: #666666">=</span> random_split(dataset, [train_size, test_size])
+
+train_loader <span style="color: #666666">=</span> DataLoader(train_dataset, batch_size<span style="color: #666666">=8</span>, shuffle<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">True</span>)
+test_loader <span style="color: #666666">=</span> DataLoader(test_dataset, batch_size<span style="color: #666666">=8</span>, shuffle<span style="color: #666666">=</span><span style="color: #008000; font-weight: bold">False</span>)
+
+<span style="color: #408080; font-style: italic"># CNN Model</span>
+<span style="color: #008000; font-weight: bold">class</span> <span style="color: #0000FF; font-weight: bold">CNN</span>(nn<span style="color: #666666">.</span>Module):
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">__init__</span>(<span style="color: #008000">self</span>):
+        <span style="color: #008000">super</span>(CNN, <span style="color: #008000">self</span>)<span style="color: #666666">.</span><span style="color: #0000FF">__init__</span>()
+        <span style="color: #008000">self</span><span style="color: #666666">.</span>net <span style="color: #666666">=</span> nn<span style="color: #666666">.</span>Sequential(
+            nn<span style="color: #666666">.</span>Conv2d(<span style="color: #666666">1</span>, <span style="color: #666666">16</span>, <span style="color: #666666">3</span>, padding<span style="color: #666666">=1</span>),
+            nn<span style="color: #666666">.</span>ReLU(),
+            nn<span style="color: #666666">.</span>MaxPool2d(<span style="color: #666666">2</span>),
+            nn<span style="color: #666666">.</span>Conv2d(<span style="color: #666666">16</span>, <span style="color: #666666">32</span>, <span style="color: #666666">3</span>, padding<span style="color: #666666">=1</span>),
+            nn<span style="color: #666666">.</span>ReLU(),
+            nn<span style="color: #666666">.</span>MaxPool2d(<span style="color: #666666">2</span>),
+            nn<span style="color: #666666">.</span>Flatten(),
+            nn<span style="color: #666666">.</span>Linear(<span style="color: #666666">32</span> <span style="color: #666666">*</span> <span style="color: #666666">12</span> <span style="color: #666666">*</span> <span style="color: #666666">12</span>, <span style="color: #666666">64</span>),
+            nn<span style="color: #666666">.</span>ReLU(),
+            nn<span style="color: #666666">.</span>Linear(<span style="color: #666666">64</span>, <span style="color: #666666">2</span>)
+        )
+
+    <span style="color: #008000; font-weight: bold">def</span> <span style="color: #0000FF">forward</span>(<span style="color: #008000">self</span>, x):
+        <span style="color: #008000; font-weight: bold">return</span> <span style="color: #008000">self</span><span style="color: #666666">.</span>net(x)
+
+<span style="color: #408080; font-style: italic"># Instantiate and train</span>
+device <span style="color: #666666">=</span> torch<span style="color: #666666">.</span>device(<span style="color: #BA2121">&quot;cuda&quot;</span> <span style="color: #008000; font-weight: bold">if</span> torch<span style="color: #666666">.</span>cuda<span style="color: #666666">.</span>is_available() <span style="color: #008000; font-weight: bold">else</span> <span style="color: #BA2121">&quot;cpu&quot;</span>)
+model <span style="color: #666666">=</span> CNN()<span style="color: #666666">.</span>to(device)
+optimizer <span style="color: #666666">=</span> optim<span style="color: #666666">.</span>Adam(model<span style="color: #666666">.</span>parameters(), lr<span style="color: #666666">=0.001</span>)
+loss_fn <span style="color: #666666">=</span> nn<span style="color: #666666">.</span>CrossEntropyLoss()
+
+<span style="color: #408080; font-style: italic"># Training loop</span>
+num_epochs <span style="color: #666666">=</span> <span style="color: #666666">10</span>
+<span style="color: #008000; font-weight: bold">for</span> epoch <span style="color: #AA22FF; font-weight: bold">in</span> <span style="color: #008000">range</span>(num_epochs):
+    model<span style="color: #666666">.</span>train()
+    total_loss <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+    <span style="color: #008000; font-weight: bold">for</span> images, labels <span style="color: #AA22FF; font-weight: bold">in</span> train_loader:
+        images, labels <span style="color: #666666">=</span> images<span style="color: #666666">.</span>to(device), labels<span style="color: #666666">.</span>to(device)
+        outputs <span style="color: #666666">=</span> model(images)
+        loss <span style="color: #666666">=</span> loss_fn(outputs, labels)
+
+        optimizer<span style="color: #666666">.</span>zero_grad()
+        loss<span style="color: #666666">.</span>backward()
+        optimizer<span style="color: #666666">.</span>step()
+        total_loss <span style="color: #666666">+=</span> loss<span style="color: #666666">.</span>item()
+
+    <span style="color: #008000">print</span>(<span style="color: #BA2121">f&quot;Epoch </span><span style="color: #BB6688; font-weight: bold">{</span>epoch<span style="color: #666666">+1</span><span style="color: #BB6688; font-weight: bold">}</span><span style="color: #BA2121">/</span><span style="color: #BB6688; font-weight: bold">{</span>num_epochs<span style="color: #BB6688; font-weight: bold">}</span><span style="color: #BA2121">, Loss: </span><span style="color: #BB6688; font-weight: bold">{</span>total_loss<span style="color: #666666">/</span><span style="color: #008000">len</span>(train_loader)<span style="color: #BB6688; font-weight: bold">:</span><span style="color: #BA2121">.4f</span><span style="color: #BB6688; font-weight: bold">}</span><span style="color: #BA2121">&quot;</span>)
+
+<span style="color: #408080; font-style: italic"># Evaluation</span>
+model<span style="color: #666666">.</span>eval()
+correct <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+total <span style="color: #666666">=</span> <span style="color: #666666">0</span>
+<span style="color: #008000; font-weight: bold">with</span> torch<span style="color: #666666">.</span>no_grad():
+    <span style="color: #008000; font-weight: bold">for</span> images, labels <span style="color: #AA22FF; font-weight: bold">in</span> test_loader:
+        images, labels <span style="color: #666666">=</span> images<span style="color: #666666">.</span>to(device), labels<span style="color: #666666">.</span>to(device)
+        outputs <span style="color: #666666">=</span> model(images)
+        _, predicted <span style="color: #666666">=</span> torch<span style="color: #666666">.</span>max(outputs<span style="color: #666666">.</span>data, <span style="color: #666666">1</span>)
+        total <span style="color: #666666">+=</span> labels<span style="color: #666666">.</span>size(<span style="color: #666666">0</span>)
+        correct <span style="color: #666666">+=</span> (predicted <span style="color: #666666">==</span> labels)<span style="color: #666666">.</span>sum()<span style="color: #666666">.</span>item()
+
+<span style="color: #008000">print</span>(<span style="color: #BA2121">f&quot;Test Accuracy: </span><span style="color: #BB6688; font-weight: bold">{</span><span style="color: #666666">100</span> <span style="color: #666666">*</span> correct <span style="color: #666666">/</span> total<span style="color: #BB6688; font-weight: bold">:</span><span style="color: #BA2121">.2f</span><span style="color: #BB6688; font-weight: bold">}</span><span style="color: #BA2121">%&quot;</span>)
 </pre>
 </div>
       </div>

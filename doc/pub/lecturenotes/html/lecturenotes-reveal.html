@@ -646,6 +646,80 @@ $$
 </section>
 
 <section>
+<h2 id="simple-code-to-generate-images">Simple code to generate images </h2>
+
+<!-- code=python (!bc pycod) typeset with pygments style "perldoc" -->
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class="highlight" style="background: #eeeedd">
+  <pre style="font-size: 80%; line-height: 125%;"><span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">numpy</span> <span style="color: #8B008B; font-weight: bold">as</span> <span style="color: #008b45; text-decoration: underline">np</span>
+<span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">matplotlib.pyplot</span> <span style="color: #8B008B; font-weight: bold">as</span> <span style="color: #008b45; text-decoration: underline">plt</span>
+
+<span style="color: #228B22"># Parameters</span>
+L = <span style="color: #B452CD">50</span>                                 <span style="color: #228B22"># linear lattice size</span>
+temperatures = np.arange(<span style="color: #B452CD">2.0</span>, <span style="color: #B452CD">2.51</span>, <span style="color: #B452CD">0.1</span>)  <span style="color: #228B22"># T = 2.0, 2.1, ..., 2.5</span>
+n_steps = <span style="color: #B452CD">100000</span>                       <span style="color: #228B22"># Monte Carlo steps per temperature</span>
+
+<span style="color: #8B008B; font-weight: bold">for</span> T <span style="color: #8B008B">in</span> temperatures:
+    beta = <span style="color: #B452CD">1.0</span> / T
+    J = <span style="color: #B452CD">1.0</span>   <span style="color: #228B22"># coupling strength</span>
+    <span style="color: #228B22"># Initialize spins randomly to +1 or -1</span>
+    spins = np.random.choice([-<span style="color: #B452CD">1</span>, <span style="color: #B452CD">1</span>], size=(L, L))
+    
+    <span style="color: #228B22"># Metropolis update loop</span>
+    <span style="color: #8B008B; font-weight: bold">for</span> step <span style="color: #8B008B">in</span> <span style="color: #658b00">range</span>(n_steps):
+        <span style="color: #228B22"># Pick a random spin (i,j)</span>
+        i = np.random.randint(<span style="color: #B452CD">0</span>, L)
+        j = np.random.randint(<span style="color: #B452CD">0</span>, L)
+        <span style="color: #228B22"># Compute sum of the four neighbors (with periodic boundary conditions)</span>
+        total_neighbors = (
+            spins[(i+<span style="color: #B452CD">1</span>) % L, j] + spins[(i-<span style="color: #B452CD">1</span>) % L, j] +
+            spins[i, (j+<span style="color: #B452CD">1</span>) % L] + spins[i, (j-<span style="color: #B452CD">1</span>) % L]
+        )
+        <span style="color: #228B22"># Energy change for flipping this spin</span>
+        dE = <span style="color: #B452CD">2</span> * J * spins[i, j] * total_neighbors
+        <span style="color: #228B22"># Metropolis criterion: accept flip if dE &lt;= 0 or with prob. exp(-dE*beta)</span>
+        <span style="color: #8B008B; font-weight: bold">if</span> dE &lt;= <span style="color: #B452CD">0</span> <span style="color: #8B008B">or</span> np.random.rand() &lt; np.exp(-beta * dE):
+            spins[i, j] *= -<span style="color: #B452CD">1</span>
+
+    <span style="color: #228B22"># Plot the final spin configuration</span>
+    plt.figure(figsize=(<span style="color: #B452CD">4</span>, <span style="color: #B452CD">4</span>))
+    <span style="color: #228B22"># Use a grayscale colormap: -1 will map to black, +1 to white (vmin/vmax)</span>
+    plt.imshow(spins, cmap=<span style="color: #CD5555">&#39;gray&#39;</span>, vmin=-<span style="color: #B452CD">1</span>, vmax=<span style="color: #B452CD">1</span>)
+    plt.title(<span style="color: #CD5555">f&#39;Ising Lattice (T = {</span>T<span style="color: #CD5555">:.1f})&#39;</span>)
+    plt.axis(<span style="color: #CD5555">&#39;off&#39;</span>)
+    plt.savefig(<span style="color: #CD5555">f&#39;ising_T{</span>T<span style="color: #CD5555">:.1f}.png&#39;</span>, dpi=<span style="color: #B452CD">150</span>)
+    plt.close()
+
+<span style="color: #CD5555">&quot;&quot;&quot;    </span>
+<span style="color: #CD5555">Each saved image (e.g. ising_T2.0.png) visually depicts the spin</span>
+<span style="color: #CD5555">arrangement at that temperature. The code is easy to extend: changing</span>
+<span style="color: #CD5555">L, the temperatures list, or n_steps allows different lattice sizes or</span>
+<span style="color: #CD5555">more/fewer Monte Carlo sweeps. As expected, low-T images become mostly</span>
+<span style="color: #CD5555">uniform (a single color, since nearly all spins align), while high-T</span>
+<span style="color: #CD5555">images appear random (resembling “TV static”) . Around the critical</span>
+<span style="color: #CD5555">temperature (~2.27), one sees a mixture of black and white clusters</span>
+<span style="color: #CD5555">with fractal boundaries (as in the figure above) .</span>
+<span style="color: #CD5555">&quot;&quot;&quot;</span>
+</pre>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="output_subarea output_stream output_stdout output_text">          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
 <h2 id="monte-carlo-data-for-ml">Monte Carlo Data for ML </h2>
 <ol>
 <p><li> Generate many spin configurations across a range of temperatures \( T \).</li>
@@ -713,49 +787,6 @@ $$
 <p><li> Sensitive to scaling: data should be normalized appropriately.</li>
 <p><li> Still useful as a first-pass: identifies the most significant variations</li> 
 </ol>
-</section>
-
-<section>
-<h2 id="pca-with-pytorch-example-code">PCA with PyTorch (Example Code) </h2>
-
-<!-- code=python (!bc pycod) typeset with pygments style "perldoc" -->
-<div class="cell border-box-sizing code_cell rendered">
-  <div class="input">
-    <div class="inner_cell">
-      <div class="input_area">
-        <div class="highlight" style="background: #eeeedd">
-  <pre style="font-size: 80%; line-height: 125%;"><span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">torch</span>
-
-<span style="color: #228B22"># X: tensor of shape (N, L*L) containing spin configurations as floats (e.g. +1/-1)</span>
-<span style="color: #228B22"># Center the data</span>
-X = X - X.mean(dim=<span style="color: #B452CD">0</span>, keepdim=<span style="color: #8B008B; font-weight: bold">True</span>)
-
-<span style="color: #228B22"># Compute covariance (or use torch.pca_lowrank)</span>
-cov = torch.mm(X.t(), X) / (X.size(<span style="color: #B452CD">0</span>)-<span style="color: #B452CD">1</span>)
-
-<span style="color: #228B22"># Eigen-decomposition (SVD) of covariance</span>
-U, S, V = torch.svd(cov)
-
-<span style="color: #228B22"># Select first k principal components</span>
-k = <span style="color: #B452CD">2</span>
-PCs = U[:, :k]  <span style="color: #228B22"># shape (L*L, k)</span>
-
-<span style="color: #228B22"># Project data onto principal components</span>
-X_reduced = torch.mm(X, PCs)  <span style="color: #228B22"># shape (N, k)</span>
-</pre>
-</div>
-      </div>
-    </div>
-  </div>
-  <div class="output_wrapper">
-    <div class="output">
-      <div class="output_area">
-        <div class="output_subarea output_stream output_stdout output_text">          
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 </section>
 
 <section>
@@ -853,6 +884,147 @@ X_reduced = torch.mm(X, PCs)  <span style="color: #228B22"># shape (N, k)</span>
 model = PhaseCNN(L=<span style="color: #B452CD">32</span>)           <span style="color: #228B22"># for a 32x32 lattice</span>
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=<span style="color: #B452CD">1e-3</span>)
+</pre>
+</div>
+      </div>
+    </div>
+  </div>
+  <div class="output_wrapper">
+    <div class="output">
+      <div class="output_area">
+        <div class="output_subarea output_stream output_stdout output_text">          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="code-to-read-in-ising-data">Code to read in Ising data </h2>
+
+
+<!-- code=python (!bc pycod) typeset with pygments style "perldoc" -->
+<div class="cell border-box-sizing code_cell rendered">
+  <div class="input">
+    <div class="inner_cell">
+      <div class="input_area">
+        <div class="highlight" style="background: #eeeedd">
+  <pre style="font-size: 80%; line-height: 125%;"><span style="color: #CD5555">&quot;&quot;&quot;</span>
+<span style="color: #CD5555">Loads PNG spin images (ising_T2.0.png, …, ising_T2.5.png).</span>
+<span style="color: #CD5555">Labels them as:</span>
+<span style="color: #CD5555">0 if T &lt; 2.27 (below critical temperature)</span>
+<span style="color: #CD5555">1 if T \geq 2.27 (above critical temperature)</span>
+
+<span style="color: #CD5555">Defines a small CNN classifier.</span>
+<span style="color: #CD5555">Trains and evaluates the classifier.</span>
+<span style="color: #CD5555">&quot;&quot;&quot;</span>
+<span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">os</span>
+<span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">torch</span>
+<span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">torch.nn</span> <span style="color: #8B008B; font-weight: bold">as</span> <span style="color: #008b45; text-decoration: underline">nn</span>
+<span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">torch.optim</span> <span style="color: #8B008B; font-weight: bold">as</span> <span style="color: #008b45; text-decoration: underline">optim</span>
+<span style="color: #8B008B; font-weight: bold">from</span> <span style="color: #008b45; text-decoration: underline">torchvision</span> <span style="color: #8B008B; font-weight: bold">import</span> transforms
+<span style="color: #8B008B; font-weight: bold">from</span> <span style="color: #008b45; text-decoration: underline">torch.utils.data</span> <span style="color: #8B008B; font-weight: bold">import</span> Dataset, DataLoader, random_split
+<span style="color: #8B008B; font-weight: bold">from</span> <span style="color: #008b45; text-decoration: underline">PIL</span> <span style="color: #8B008B; font-weight: bold">import</span> Image
+<span style="color: #8B008B; font-weight: bold">import</span> <span style="color: #008b45; text-decoration: underline">matplotlib.pyplot</span> <span style="color: #8B008B; font-weight: bold">as</span> <span style="color: #008b45; text-decoration: underline">plt</span>
+
+<span style="color: #228B22"># Directory where Ising model images are stored</span>
+image_dir = <span style="color: #CD5555">&#39;./&#39;</span>  <span style="color: #228B22"># adjust path if needed</span>
+critical_temp = <span style="color: #B452CD">2.27</span>
+
+<span style="color: #228B22"># Custom Dataset</span>
+<span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">IsingDataset</span>(Dataset):
+    <span style="color: #8B008B; font-weight: bold">def</span> <span style="color: #008b45">__init__</span>(<span style="color: #658b00">self</span>, root_dir, transform=<span style="color: #8B008B; font-weight: bold">None</span>):
+        <span style="color: #658b00">self</span>.root_dir = root_dir
+        <span style="color: #658b00">self</span>.image_files = <span style="color: #658b00">sorted</span>([f <span style="color: #8B008B; font-weight: bold">for</span> f <span style="color: #8B008B">in</span> os.listdir(root_dir) <span style="color: #8B008B; font-weight: bold">if</span> f.startswith(<span style="color: #CD5555">&quot;ising_T&quot;</span>) <span style="color: #8B008B">and</span> f.endswith(<span style="color: #CD5555">&quot;.png&quot;</span>)])
+        <span style="color: #658b00">self</span>.transform = transform
+
+    <span style="color: #8B008B; font-weight: bold">def</span> <span style="color: #008b45">__len__</span>(<span style="color: #658b00">self</span>):
+        <span style="color: #8B008B; font-weight: bold">return</span> <span style="color: #658b00">len</span>(<span style="color: #658b00">self</span>.image_files)
+
+    <span style="color: #8B008B; font-weight: bold">def</span> <span style="color: #008b45">__getitem__</span>(<span style="color: #658b00">self</span>, idx):
+        file = <span style="color: #658b00">self</span>.image_files[idx]
+        T = <span style="color: #658b00">float</span>(file.split(<span style="color: #CD5555">&quot;T&quot;</span>)[<span style="color: #B452CD">1</span>].replace(<span style="color: #CD5555">&quot;.png&quot;</span>, <span style="color: #CD5555">&quot;&quot;</span>))
+        label = <span style="color: #B452CD">0</span> <span style="color: #8B008B; font-weight: bold">if</span> T &lt; critical_temp <span style="color: #8B008B; font-weight: bold">else</span> <span style="color: #B452CD">1</span>
+
+        image = Image.open(os.path.join(<span style="color: #658b00">self</span>.root_dir, file)).convert(<span style="color: #CD5555">&quot;L&quot;</span>)  <span style="color: #228B22"># grayscale</span>
+
+        <span style="color: #8B008B; font-weight: bold">if</span> <span style="color: #658b00">self</span>.transform:
+            image = <span style="color: #658b00">self</span>.transform(image)
+
+        <span style="color: #8B008B; font-weight: bold">return</span> image, label
+
+<span style="color: #228B22"># Transforms</span>
+transform = transforms.Compose([
+    transforms.Resize((<span style="color: #B452CD">50</span>, <span style="color: #B452CD">50</span>)),
+    transforms.ToTensor(),  <span style="color: #228B22"># shape (1, H, W), values in [0,1]</span>
+])
+
+<span style="color: #228B22"># Dataset and Dataloader</span>
+dataset = IsingDataset(image_dir, transform=transform)
+train_size = <span style="color: #658b00">int</span>(<span style="color: #B452CD">0.8</span> * <span style="color: #658b00">len</span>(dataset))
+test_size = <span style="color: #658b00">len</span>(dataset) - train_size
+train_dataset, test_dataset = random_split(dataset, [train_size, test_size])
+
+train_loader = DataLoader(train_dataset, batch_size=<span style="color: #B452CD">8</span>, shuffle=<span style="color: #8B008B; font-weight: bold">True</span>)
+test_loader = DataLoader(test_dataset, batch_size=<span style="color: #B452CD">8</span>, shuffle=<span style="color: #8B008B; font-weight: bold">False</span>)
+
+<span style="color: #228B22"># CNN Model</span>
+<span style="color: #8B008B; font-weight: bold">class</span> <span style="color: #008b45; font-weight: bold">CNN</span>(nn.Module):
+    <span style="color: #8B008B; font-weight: bold">def</span> <span style="color: #008b45">__init__</span>(<span style="color: #658b00">self</span>):
+        <span style="color: #658b00">super</span>(CNN, <span style="color: #658b00">self</span>).<span style="color: #008b45">__init__</span>()
+        <span style="color: #658b00">self</span>.net = nn.Sequential(
+            nn.Conv2d(<span style="color: #B452CD">1</span>, <span style="color: #B452CD">16</span>, <span style="color: #B452CD">3</span>, padding=<span style="color: #B452CD">1</span>),
+            nn.ReLU(),
+            nn.MaxPool2d(<span style="color: #B452CD">2</span>),
+            nn.Conv2d(<span style="color: #B452CD">16</span>, <span style="color: #B452CD">32</span>, <span style="color: #B452CD">3</span>, padding=<span style="color: #B452CD">1</span>),
+            nn.ReLU(),
+            nn.MaxPool2d(<span style="color: #B452CD">2</span>),
+            nn.Flatten(),
+            nn.Linear(<span style="color: #B452CD">32</span> * <span style="color: #B452CD">12</span> * <span style="color: #B452CD">12</span>, <span style="color: #B452CD">64</span>),
+            nn.ReLU(),
+            nn.Linear(<span style="color: #B452CD">64</span>, <span style="color: #B452CD">2</span>)
+        )
+
+    <span style="color: #8B008B; font-weight: bold">def</span> <span style="color: #008b45">forward</span>(<span style="color: #658b00">self</span>, x):
+        <span style="color: #8B008B; font-weight: bold">return</span> <span style="color: #658b00">self</span>.net(x)
+
+<span style="color: #228B22"># Instantiate and train</span>
+device = torch.device(<span style="color: #CD5555">&quot;cuda&quot;</span> <span style="color: #8B008B; font-weight: bold">if</span> torch.cuda.is_available() <span style="color: #8B008B; font-weight: bold">else</span> <span style="color: #CD5555">&quot;cpu&quot;</span>)
+model = CNN().to(device)
+optimizer = optim.Adam(model.parameters(), lr=<span style="color: #B452CD">0.001</span>)
+loss_fn = nn.CrossEntropyLoss()
+
+<span style="color: #228B22"># Training loop</span>
+num_epochs = <span style="color: #B452CD">10</span>
+<span style="color: #8B008B; font-weight: bold">for</span> epoch <span style="color: #8B008B">in</span> <span style="color: #658b00">range</span>(num_epochs):
+    model.train()
+    total_loss = <span style="color: #B452CD">0</span>
+    <span style="color: #8B008B; font-weight: bold">for</span> images, labels <span style="color: #8B008B">in</span> train_loader:
+        images, labels = images.to(device), labels.to(device)
+        outputs = model(images)
+        loss = loss_fn(outputs, labels)
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        total_loss += loss.item()
+
+    <span style="color: #658b00">print</span>(<span style="color: #CD5555">f&quot;Epoch {</span>epoch+<span style="color: #B452CD">1</span><span style="color: #CD5555">}/{</span>num_epochs<span style="color: #CD5555">}, Loss: {</span>total_loss/<span style="color: #658b00">len</span>(train_loader)<span style="color: #CD5555">:.4f}&quot;</span>)
+
+<span style="color: #228B22"># Evaluation</span>
+model.eval()
+correct = <span style="color: #B452CD">0</span>
+total = <span style="color: #B452CD">0</span>
+<span style="color: #8B008B; font-weight: bold">with</span> torch.no_grad():
+    <span style="color: #8B008B; font-weight: bold">for</span> images, labels <span style="color: #8B008B">in</span> test_loader:
+        images, labels = images.to(device), labels.to(device)
+        outputs = model(images)
+        _, predicted = torch.max(outputs.data, <span style="color: #B452CD">1</span>)
+        total += labels.size(<span style="color: #B452CD">0</span>)
+        correct += (predicted == labels).sum().item()
+
+<span style="color: #658b00">print</span>(<span style="color: #CD5555">f&quot;Test Accuracy: {</span><span style="color: #B452CD">100</span> * correct / total<span style="color: #CD5555">:.2f}%&quot;</span>)
 </pre>
 </div>
       </div>

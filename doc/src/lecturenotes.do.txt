@@ -356,6 +356,62 @@ for T in temperature_list:
    record_configuration(config, T)
 !ec
 
+
+!split
+===== Simple code to generate images =====
+!bc pycod
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Parameters
+L = 50                                 # linear lattice size
+temperatures = np.arange(2.0, 2.51, 0.1)  # T = 2.0, 2.1, ..., 2.5
+n_steps = 100000                       # Monte Carlo steps per temperature
+
+for T in temperatures:
+    beta = 1.0 / T
+    J = 1.0   # coupling strength
+    # Initialize spins randomly to +1 or -1
+    spins = np.random.choice([-1, 1], size=(L, L))
+    
+    # Metropolis update loop
+    for step in range(n_steps):
+        # Pick a random spin (i,j)
+        i = np.random.randint(0, L)
+        j = np.random.randint(0, L)
+        # Compute sum of the four neighbors (with periodic boundary conditions)
+        total_neighbors = (
+            spins[(i+1) % L, j] + spins[(i-1) % L, j] +
+            spins[i, (j+1) % L] + spins[i, (j-1) % L]
+        )
+        # Energy change for flipping this spin
+        dE = 2 * J * spins[i, j] * total_neighbors
+        # Metropolis criterion: accept flip if dE <= 0 or with prob. exp(-dE*beta)
+        if dE <= 0 or np.random.rand() < np.exp(-beta * dE):
+            spins[i, j] *= -1
+
+    # Plot the final spin configuration
+    plt.figure(figsize=(4, 4))
+    # Use a grayscale colormap: -1 will map to black, +1 to white (vmin/vmax)
+    plt.imshow(spins, cmap='gray', vmin=-1, vmax=1)
+    plt.title(f'Ising Lattice (T = {T:.1f})')
+    plt.axis('off')
+    plt.savefig(f'ising_T{T:.1f}.png', dpi=150)
+    plt.close()
+
+"""    
+Each saved image (e.g. ising_T2.0.png) visually depicts the spin
+arrangement at that temperature. The code is easy to extend: changing
+L, the temperatures list, or n_steps allows different lattice sizes or
+more/fewer Monte Carlo sweeps. As expected, low-T images become mostly
+uniform (a single color, since nearly all spins align), while high-T
+images appear random (resembling “TV static”) . Around the critical
+temperature (~2.27), one sees a mixture of black and white clusters
+with fractal boundaries (as in the figure above) .
+"""
+
+!ec
+
 !split
 ===== Monte Carlo Data for ML =====
 o Generate many spin configurations across a range of temperatures $T$.
@@ -411,28 +467,7 @@ o PCA does not directly classify; it provides features for clustering or visuali
 o Sensitive to scaling: data should be normalized appropriately.
 o Still useful as a first-pass: identifies the most significant variations 
 
-!split
-===== PCA with PyTorch (Example Code) =====
-!bc pycod
-import torch
 
-# X: tensor of shape (N, L*L) containing spin configurations as floats (e.g. +1/-1)
-# Center the data
-X = X - X.mean(dim=0, keepdim=True)
-
-# Compute covariance (or use torch.pca_lowrank)
-cov = torch.mm(X.t(), X) / (X.size(0)-1)
-
-# Eigen-decomposition (SVD) of covariance
-U, S, V = torch.svd(cov)
-
-# Select first k principal components
-k = 2
-PCs = U[:, :k]  # shape (L*L, k)
-
-# Project data onto principal components
-X_reduced = torch.mm(X, PCs)  # shape (N, k)
-!ec
 
 !split
 ===== Convolutional Neural Networks (CNNs) =====
@@ -505,6 +540,128 @@ class PhaseCNN(nn.Module):
 model = PhaseCNN(L=32)           # for a 32x32 lattice
 criterion = nn.CrossEntropyLoss()
 optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
+!ec
+
+
+!split
+===== Code to read in Ising data =====
+
+!bc pycod
+"""
+Loads PNG spin images (ising_T2.0.png, …, ising_T2.5.png).
+Labels them as:
+0 if T < 2.27 (below critical temperature)
+1 if T \geq 2.27 (above critical temperature)
+
+Defines a small CNN classifier.
+Trains and evaluates the classifier.
+"""
+import os
+import torch
+import torch.nn as nn
+import torch.optim as optim
+from torchvision import transforms
+from torch.utils.data import Dataset, DataLoader, random_split
+from PIL import Image
+import matplotlib.pyplot as plt
+
+# Directory where Ising model images are stored
+image_dir = './'  # adjust path if needed
+critical_temp = 2.27
+
+# Custom Dataset
+class IsingDataset(Dataset):
+    def __init__(self, root_dir, transform=None):
+        self.root_dir = root_dir
+        self.image_files = sorted([f for f in os.listdir(root_dir) if f.startswith("ising_T") and f.endswith(".png")])
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.image_files)
+
+    def __getitem__(self, idx):
+        file = self.image_files[idx]
+        T = float(file.split("T")[1].replace(".png", ""))
+        label = 0 if T < critical_temp else 1
+
+        image = Image.open(os.path.join(self.root_dir, file)).convert("L")  # grayscale
+
+        if self.transform:
+            image = self.transform(image)
+
+        return image, label
+
+# Transforms
+transform = transforms.Compose([
+    transforms.Resize((50, 50)),
+    transforms.ToTensor(),  # shape (1, H, W), values in [0,1]
+])
+
+# Dataset and Dataloader
+dataset = IsingDataset(image_dir, transform=transform)
+train_size = int(0.8 * len(dataset))
+test_size = len(dataset) - train_size
+train_dataset, test_dataset = random_split(dataset, [train_size, test_size])
+
+train_loader = DataLoader(train_dataset, batch_size=8, shuffle=True)
+test_loader = DataLoader(test_dataset, batch_size=8, shuffle=False)
+
+# CNN Model
+class CNN(nn.Module):
+    def __init__(self):
+        super(CNN, self).__init__()
+        self.net = nn.Sequential(
+            nn.Conv2d(1, 16, 3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Conv2d(16, 32, 3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2),
+            nn.Flatten(),
+            nn.Linear(32 * 12 * 12, 64),
+            nn.ReLU(),
+            nn.Linear(64, 2)
+        )
+
+    def forward(self, x):
+        return self.net(x)
+
+# Instantiate and train
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+model = CNN().to(device)
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+loss_fn = nn.CrossEntropyLoss()
+
+# Training loop
+num_epochs = 10
+for epoch in range(num_epochs):
+    model.train()
+    total_loss = 0
+    for images, labels in train_loader:
+        images, labels = images.to(device), labels.to(device)
+        outputs = model(images)
+        loss = loss_fn(outputs, labels)
+
+        optimizer.zero_grad()
+        loss.backward()
+        optimizer.step()
+        total_loss += loss.item()
+
+    print(f"Epoch {epoch+1}/{num_epochs}, Loss: {total_loss/len(train_loader):.4f}")
+
+# Evaluation
+model.eval()
+correct = 0
+total = 0
+with torch.no_grad():
+    for images, labels in test_loader:
+        images, labels = images.to(device), labels.to(device)
+        outputs = model(images)
+        _, predicted = torch.max(outputs.data, 1)
+        total += labels.size(0)
+        correct += (predicted == labels).sum().item()
+
+print(f"Test Accuracy: {100 * correct / total:.2f}%")
 !ec
 
 !split
