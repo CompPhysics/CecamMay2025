@@ -133,20 +133,20 @@ Here are 3 of the 1265 elements of the data set
 Here is the architecture of the best CNN implemented:
 
 <p align="center">
-<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Notes/DatafilesIsing/figs/TF_CNN_arch.png?raw=true"  width="500"/>
-
+<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles/figs/TF_CNN_arch.png?raw=true"  width="500"/>
+<p align="center">
 
 Here is the best regression predictions over test set
 
 <p align="center">
-<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Notes/DatafilesIsing/figs/TF_CNN_l2reg001_eta00001_epoch1000-1.png?raw=true" width="500"/>
+<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles/figs/TF_CNN_l2reg001_eta00001_epoch1000-1.png?raw=true" width="500"/>
 <p align="center">
 
 
 
 Here is the confusion matrix from the critical temperature classification
 <p align="center">
-<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Notes/DatafilesIsing/figs/TF_CNN_confusion_matrix-1.png?raw=true" width="500"/>
+<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles/figs/TF_CNN_confusion_matrix-1.png?raw=true" width="500"/>
 <p align="center">
 
 
@@ -154,7 +154,7 @@ Here is the critical temperature infered from classification
 
 
 <p align="center">
-<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Notes/DatafilesIsing/figs/TF_CNN_probabilities-1.png?raw=true" width="500"/>
+<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles/figs/TF_CNN_probabilities-1.png?raw=true" width="500"/>
 <p align="center">
 
 
