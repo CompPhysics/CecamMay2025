@@ -110,6 +110,11 @@ Summary: VAEs, like PCA, perform unsupervised feature extraction, but with non-l
 
 The Ising model has been simulated using the Metropolis algorithm as sampling rule and  Markov Chain Monte Carlo (MCMC) procedure to sample configurations. 
 
+All program files are in the folder https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles.
+
+If you are not familiar with CNNs, feel free to visit and study my lecture notes at https://github.com/CompPhysics/AdvancedMachineLearning and go to the material for week 4 at https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week4/ipynb/week4.ipynb and week 5 at https://github.com/CompPhysics/AdvancedMachineLearning/blob/main/doc/pub/week5/ipynb/week5.ipynb
+
+
 The  results here have been obtained by  implementing the 50x50 2D lattice version of the Ising model and
 training a convolutional neural network (CNN) to perform regession and
 classification.  The regression task deals with the  prediction of  the lattice
