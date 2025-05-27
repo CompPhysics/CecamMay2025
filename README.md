@@ -127,7 +127,7 @@ uncertainty in classification.
 
 Here are 3 of the 1265 elements of the data set
 <p align="center">
-<img src="https://github.com/Daniel-Haas-B/FYS-STK4155/blob/main/project3/figs/L50_configs.png?raw=true"/>
+<img src="https://github.com/CompPhysics/CecamMay2025/tree/main/doc/Programs/IsingModelFiles/figs/L50_configs.png?raw=true"/>
 <p align="center">
 
 Here is the architecture of the best CNN implemented:
@@ -205,7 +205,7 @@ Understanding possible output parameters:
 
 
 
-
+<img src="https://github.com/Daniel-Haas-B/FYS-STK4155/blob/main/project3/figs/L50_configs.png?raw=true"/>
 
 
 
